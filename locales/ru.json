@@ -1,0 +1,211 @@
+{
+    "welcome": "🎉 <b>Добро пожаловать в Aliway Cargo!</b>\n\nБыстрая и надёжная доставка из Китая в Узбекистан.",
+    "select_language": "🌐 <b>Tilni tanlang</b>\nВыберите язык\nDil seçin",
+    "language_selected": "✅ <b>Язык выбран:</b> 🇷🇺 Русский",
+    "request_contact": "📞 <b>Поделитесь номером телефона</b>\n\nИспользуйте кнопку ниже для быстрой отправки.",
+    "contact_received": "✅ <b>Номер телефона принят!</b>",
+    "current_language": "{language}",
+    "buttons": {
+        "start": "🚀 Начать",
+        "back": "◀️ Назад",
+        "cancel": "❌ Отмена",
+        "confirm": "✅ Подтвердить",
+        "skip": "⏭️ Пропустить",
+        "continue": "Продолжить",
+        "yes": "✅ Да",
+        "no": "❌ Нет",
+        "change_language": "🌐 Изменить язык",
+        "edit": "✏️ Редактировать",
+        "share_phone": "📞 Поделиться номером"
+    },
+    "manager_menu": {
+        "title": "📊 Панель менеджера",
+        "select_action": "Выберите действие:",
+        "buttons": {
+            "create_cargo": "➕ Создать новый Cargo ID",
+            "manage_cargo": "📦 Добавить груз",
+            "update_status": "🔄 Обновить статус",
+            "view_cargos": "🔍 Просмотреть грузы",
+            "export": "📥 Экспорт в Excel"
+        }
+    },
+    "client_menu": {
+        "title": "👋 <b>Aliway Cargo</b>",
+        "tagline": "✨ Из Китая в Узбекистан\n🚚 Быстрая и надёжная доставка\n📦 Одежда, обувь и другие товары",
+        "footer": "Выберите нужный раздел ниже ⬇️",
+        "buttons": {
+            "my_cargo": "🆔 Мой Cargo ID",
+            "track_cargo": "🔍 Отследить груз",
+            "groups": "🛍️ Наши группы",
+            "contacts": "📞 Связаться",
+            "settings": "⚙️ Настройки",
+            "change_language": "🌐 Изменить язык"
+        }
+    },
+    "status": {
+        "pending": "🕐 Ожидается",
+        "in_transit": "🚚 В пути",
+        "arrived": "📦 Прибыло",
+        "ready": "✅ Готово",
+        "delivered": "🎉 Выдано"
+    },
+    "create_cargo": {
+        "title": "🆕 Создать новый Cargo ID",
+        "request_phone": "📞 Введите номер телефона клиента:\n\nФормат: <code>+998901234567</code>",
+        "phone_format": "⚠️ Введите номер телефона в формате: <code>+998901234567</code>",
+        "client_not_found": "⚠️ Клиент не найден. Создать нового?",
+        "client_found": "✅ Клиент найден!",
+        "client_info": {
+            "name": "Имя",
+            "phone": "Телефон",
+            "cargo_id": "Cargo ID",
+            "created_at": "Зарегистрирован"
+        },
+        "existing_cargo": "⚠️ Этот клиент уже есть в базе!",
+        "no_cargo_id": "У этого клиента нет Cargo ID.",
+        "new_cargo_confirm": "⚠️ <b>Подтверждение</b>\n\nСтарый ID клиента: <b>{old_id}</b>\nЕсли создадим новый ID, старый не удалится, но основной ID клиента обновится.\n\nПродолжить?",
+        "use_existing": "📋 Использовать существующий ID",
+        "create_new": "➕ Создать новый ID",
+        "cargo_created": "✅ Cargo ID создан: <b>{cargo_id}</b>",
+        "cargo_updated": "✅ Cargo ID обновлён: <b>{old_id}</b> → <b>{new_id}</b>",
+        "client_added": "✅ <b>Новый клиент добавлен!</b>\n\n📞 Телефон: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "notification_sent": "💬 Клиенту отправлено уведомление.",
+        "confirm_client": "Это правильный клиент?"
+    },
+    "manage_cargo": {
+        "title": "📦 Добавить груз",
+        "request_cargo_id": "🆔 Введите Cargo ID (5-значное число):",
+        "cargo_not_found": "❌ Cargo ID не найден",
+        "client_found": "👤 <b>{name}</b>\n📞 <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "client_confirmation": {
+            "name": "Имя клиента",
+            "phone": "Телефон",
+            "cargo_id": "Cargo ID"
+        },
+        "fields": {
+            "description": "📋 Введите описание груза (обязательно):",
+            "weight": "⚖️ Введите вес груза (кг, опционально):",
+            "cargo_weight": "📦 Введите вес упаковки (кг, опционально):",
+            "price": "💰 Введите цену (опционально):",
+            "currency": "💵 Выберите валюту:",
+            "photo": "🖼️ Отправьте фото (опционально):",
+            "notes": "📝 Введите дополнительные заметки (опционально):"
+        },
+        "errors": {
+            "description_required": "⚠️ Описание груза обязательно! Пропустить нельзя.",
+            "invalid_number": "⚠️ Введите положительное число больше 0!",
+            "invalid_cargo_id": "⚠️ Cargo ID должен быть 5-значным числом!"
+        },
+        "preview": "📋 <b>Информация о грузе (проверка)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Клиент: <b>{client_name}</b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price} {currency}</b>\n📝 Заметки: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "confirm": "Сохранить информацию о грузе?",
+        "saved": "✅ <b>Груз успешно сохранён!</b>",
+        "cancelled": "❌ Отменено."
+    },
+    "update_status": {
+        "title": "🔄 Обновить статус",
+        "request_cargo_id": "🆔 Введите Cargo ID:",
+        "current_status": "Текущий статус",
+        "current_status_label": "Текущий статус: <b>{status}</b>",
+        "select_new_status": "Выберите новый статус:",
+        "updated": "✅ Статус обновлён: <b>{status}</b>",
+        "same_status": "⚠️ Этот статус уже выбран",
+        "shipment_info": "📦 <b>Информация о грузе</b>\n━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>{name}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n📌 Текущий статус: <b>{status}</b>\n━━━━━━━━━━━━━━━━━━━━"
+    },
+    "view_cargos": {
+        "title": "🔍 Просмотр грузов",
+        "select_filter": "Выберите фильтр:",
+        "filter_by_status": "📋 По статусу",
+        "by_phone": "По телефону",
+        "by_cargo_id": "По Cargo ID",
+        "by_status": "По статусу",
+        "search_by_phone": "📞 Введите номер телефона для поиска:",
+        "search_by_cargo": "🆔 Введите Cargo ID для поиска:",
+        "all_cargos": "📦 Все грузы",
+        "page": "Страница {page}/{total}",
+        "no_cargos": "📭 Грузы не найдены",
+        "your_shipments": "Ваши грузы",
+        "select_status": "Выберите статус:"
+    },
+    "export": {
+        "title": "📥 Экспорт в Excel",
+        "select_filter": "Выберите фильтр для экспорта:",
+        "generating": "⏳ Генерация Excel файла...",
+        "done": "✅ Excel файл готов!",
+        "file_name": "cargo_export_{date}.xlsx",
+        "no_data": "📭 Нет данных для экспорта"
+    },
+    "my_cargo": {
+        "title": "🆔 <b>Мой Cargo ID</b>",
+        "your_cargo_id": "🔢 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "your_shipments": "📦 <b>Ваши грузы</b>",
+        "no_shipments": "📭 У вас пока нет грузов.",
+        "no_cargo_id": "⚠️ Вам ещё не присвоен Cargo ID.",
+        "contact_admin": "📞 Пожалуйста, свяжитесь с администратором для получения ID.",
+        "shipment_item": "<b>{idx}.</b> {description}\n   📌 {status}\n   📅 {date}"
+    },
+    "track_cargo": {
+        "title": "🔍 <b>Отследить груз</b>",
+        "request_cargo_id": "🔍 <b>Отследить груз</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 Введите ваш 5-значный Cargo ID:\n\nПример: <code>48392</code>",
+        "cargo_not_found": "❌ Cargo ID не найден.\n\nПожалуйста, проверьте ID и попробуйте снова.",
+        "no_access": "⛔ Этот Cargo ID не принадлежит вам.\n\nВы можете отслеживать только свой ID.",
+        "cargo_info": "📦 <b>Информация о грузе</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price} {currency}</b>\n📌 Статус: <b>{status}</b>\n📝 Заметки: <b>{notes}</b>\n📅 Создан: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "view_photo": "🖼️ Посмотреть фото"
+    },
+    "groups": {
+        "title": "🛍️ <b>Наши группы</b>",
+        "subtitle": "Присоединяйтесь к торговым группам и узнавайте о выгодных предложениях 👇",
+        "no_groups": "📭 Пока нет групп.",
+        "join_group": "Нажмите кнопку ниже для присоединения:"
+    },
+    "contacts": {
+        "title": "📞 <b>Связаться с нами</b>",
+        "address": "📍 Адрес",
+        "address_not_specified": "Адрес не указан",
+        "phones": "📱 Телефон",
+        "phones_not_specified": "Телефон не указан",
+        "telegram": "✈️ Telegram",
+        "telegram_not_specified": "@username",
+        "working_hours": "⏰ Время работы",
+        "working_days": "Пн-Сб: 09:00 - 18:00",
+        "china_office": "🇨🇳 <b>Наш офис в Китае</b>"
+    },
+    "settings": {
+        "title": "⚙️ <b>Настройки</b>",
+        "current_language": "Текущий язык:"
+    },
+    "change_language": {
+        "title": "🌐 Изменить язык",
+        "select_language": "🌐 <b>Выберите язык:</b>",
+        "uzbek": "🇺🇿 O'zbek",
+        "russian": "🇷🇺 Русский",
+        "turkish": "🇹🇷 Türkçe",
+        "changed": "✅ <b>Язык успешно изменён!</b>"
+    },
+    "notification": {
+        "status_updated": "📦 <b>Статус вашего груза обновлён!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n🔄 Новый статус: <b>{status}</b>\n\n💬 {message}",
+        "status_messages": {
+            "pending": "Ваш груз ожидается.",
+            "in_transit": "Ваш груз в пути.",
+            "arrived": "Ваш груз прибыл на склад.",
+            "ready": "Вы можете забрать ваш груз.",
+            "delivered": "Ваш груз выдан."
+        },
+        "cargo_id_assigned": "✅ <b>Вам назначен Cargo ID!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Используйте этот ID для отслеживания грузов.",
+        "cargo_id_updated": "🔄 <b>Ваш Cargo ID обновлён!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Старый ID: <b>{old_id}</b>\n🆔 Новый ID: <b><code>{new_id}</code></b>"
+    },
+    "errors": {
+        "not_found": "❌ Не найдено",
+        "no_access": "⛔ Этот ID не принадлежит вам",
+        "invalid_number": "⚠️ Введите положительное число",
+        "invalid_phone": "⚠️ Неверный формат номера телефона",
+        "no_permission": "🚫 Нет доступа к этой команде",
+        "unknown_error": "❌ Произошла неизвестная ошибка. Попробуйте позже.",
+        "client_not_registered": "⚠️ Сначала зарегистрируйтесь (/start)",
+        "cargo_id_exists": "⚠️ Этот Cargo ID уже занят",
+        "session_expired": "⚠️ Сессия истекла. Начните заново."
+    },
+    "currencies": {
+        "usd": "💵 USD",
+        "uzs": "💴 UZS"
+    }
+}

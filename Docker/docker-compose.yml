@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: cargo_postgres
+    restart: always
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_USER: ${DB_USER:-cargo_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgresql}
+      POSTGRES_DB: ${DB_NAME:-cargo_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-cargo_user} -d ${DB_NAME:-cargo_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cargo_network
+
+  bot:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile
+    container_name: cargo_bot
+    restart: always
+    env_file:
+      - ../.env
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      MANAGER_IDS: ${MANAGER_IDS:-1630199811}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-cargo_db}
+      DB_USER: ${DB_USER:-cargo_user}
+      DB_PASSWORD: ${DB_PASSWORD:-postgresql}
+      DB_POOL_SIZE: ${DB_POOL_SIZE:-5}
+      DB_MAX_OVERFLOW: ${DB_MAX_OVERFLOW:-15}
+      DB_ECHO: ${DB_ECHO:-false}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - cargo_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  cargo_network:
+    driver: bridge

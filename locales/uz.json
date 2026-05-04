@@ -1,0 +1,211 @@
+{
+    "welcome": "🎉 <b>Aliway Cargo botiga xush kelibsiz!</b>\n\nXitoydan O'zbekistonga tez va ishonchli yetkazib berish xizmati.",
+    "select_language": "🌐 <b>Tilni tanlang</b>\nВыберите язык\nDil seçin",
+    "language_selected": "✅ <b>Til tanlandi:</b> 🇺🇿 O'zbekcha",
+    "request_contact": "📞 <b>Telefon raqamingizni yuboring</b>\n\nQuyidagi tugma orqali tezkor ulashing.",
+    "contact_received": "✅ <b>Telefon raqam qabul qilindi!</b>",
+    "current_language": "{language}",
+    "buttons": {
+        "start": "🚀 Boshlash",
+        "back": "◀️ Orqaga",
+        "cancel": "❌ Bekor qilish",
+        "confirm": "✅ Tasdiqlash",
+        "skip": "⏭️ O'tkazib yuborish",
+        "continue": "Davom etish",
+        "yes": "✅ Ha",
+        "no": "❌ Yo'q",
+        "change_language": "🌐 Tilni o'zgartirish",
+        "edit": "✏️ Tahrirlash",
+        "share_phone": "📞 Telefon raqamni ulashish"
+    },
+    "manager_menu": {
+        "title": "📊 Manager Panel",
+        "select_action": "Amalni tanlang:",
+        "buttons": {
+            "create_cargo": "➕ Yangi Cargo ID yaratish",
+            "manage_cargo": "📦 Yuk biriktirish",
+            "update_status": "🔄 Status yangilash",
+            "view_cargos": "🔍 Yuklarni ko'rish",
+            "export": "📥 Excel eksport"
+        }
+    },
+    "client_menu": {
+        "title": "👋 <b>Aliway Cargo</b>",
+        "tagline": "✨ Xitoydan O'zbekistonga\n🚚 Tez va ishonchli yetkazib berish\n📦 Kiyim, poyabzal va boshqa tovarlar",
+        "footer": "Quyidan kerakli bo'limni tanlang ⬇️",
+        "buttons": {
+            "my_cargo": "🆔 Mening Cargo ID im",
+            "track_cargo": "🔍 Yukni kuzatish",
+            "groups": "🛍️ Bizning guruhlar",
+            "contacts": "📞 Bog'lanish",
+            "settings": "⚙️ Sozlamalar",
+            "change_language": "🌐 Tilni o'zgartirish"
+        }
+    },
+    "status": {
+        "pending": "🕐 Kutilmoqda",
+        "in_transit": "🚚 Yo'lda",
+        "arrived": "📦 Yetib keldi",
+        "ready": "✅ Tayyor",
+        "delivered": "🎉 Topshirildi"
+    },
+    "create_cargo": {
+        "title": "🆕 Yangi Cargo ID yaratish",
+        "request_phone": "📞 Mijoz telefon raqamini kiriting:\n\nFormat: <code>+998901234567</code>",
+        "phone_format": "⚠️ Telefon raqamini quyidagi formatda kiriting: <code>+998901234567</code>",
+        "client_not_found": "⚠️ Mijoz topilmadi. Yangi mijoz yaratilsinmi?",
+        "client_found": "✅ Mijoz topildi!",
+        "client_info": {
+            "name": "Ismi",
+            "phone": "Telefon",
+            "cargo_id": "Cargo ID",
+            "created_at": "Ro'yxatdan o'tgan"
+        },
+        "existing_cargo": "⚠️ Bu mijoz allaqachon bazada mavjud!",
+        "no_cargo_id": "Bu mijozga Cargo ID biriktirilmagan.",
+        "new_cargo_confirm": "⚠️ <b>Tasdiqlash</b>\n\nMijozning eski IDsi: <b>{old_id}</b>\nYangi ID yaratilsa, eski ID o'chirilmaydi, lekin mijozning asosiy IDsi yangilanadi.\n\nDavom etasizmi?",
+        "use_existing": "📋 Mavjud IDni ishlatish",
+        "create_new": "➕ Yangi ID yaratish",
+        "cargo_created": "✅ Cargo ID yaratildi: <b>{cargo_id}</b>",
+        "cargo_updated": "✅ Cargo ID yangilandi: <b>{old_id}</b> → <b>{new_id}</b>",
+        "client_added": "✅ <b>Yangi mijoz qo'shildi!</b>\n\n📞 Telefon: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "notification_sent": "💬 Mijozga xabar yuborildi.",
+        "confirm_client": "To'g'ri mijozmi?"
+    },
+    "manage_cargo": {
+        "title": "📦 Yuk biriktirish",
+        "request_cargo_id": "🆔 Cargo ID ni kiriting (5 xonali son):",
+        "cargo_not_found": "❌ Cargo ID topilmadi",
+        "client_found": "👤 <b>{name}</b>\n📞 <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "client_confirmation": {
+            "name": "Mijoz ismi",
+            "phone": "Telefon",
+            "cargo_id": "Cargo ID"
+        },
+        "fields": {
+            "description": "📋 Yuk nimaligini kiriting (majburiy):",
+            "weight": "⚖️ Yuk kilosini kiriting (kg, ixtiyoriy):",
+            "cargo_weight": "📦 Cargo kilosini kiriting (kg, ixtiyoriy):",
+            "price": "💰 Narxni kiriting (ixtiyoriy):",
+            "currency": "💵 Valyutani tanlang:",
+            "photo": "🖼️ Rasmni yuboring (ixtiyoriy):",
+            "notes": "📝 Qo'shimcha izoh kiriting (ixtiyoriy):"
+        },
+        "errors": {
+            "description_required": "⚠️ Yuk nimaligi majburiy! O'tkazib yuborib bo'lmaydi.",
+            "invalid_number": "⚠️ Faqat 0 dan katta musbat son kiriting!",
+            "invalid_cargo_id": "⚠️ Cargo ID 5 xonali son bo'lishi kerak!"
+        },
+        "preview": "📋 <b>Yuk ma'lumoti (tekshirish)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Mijoz: <b>{client_name}</b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price} {currency}</b>\n📝 Izoh: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "confirm": "Yuk ma'lumotlarini saqlash?",
+        "saved": "✅ <b>Yuk muvaffaqiyatli saqlandi!</b>",
+        "cancelled": "❌ Bekor qilindi."
+    },
+    "update_status": {
+        "title": "🔄 Status yangilash",
+        "request_cargo_id": "🆔 Cargo ID ni kiriting:",
+        "current_status": "Joriy holat",
+        "current_status_label": "Joriy holat: <b>{status}</b>",
+        "select_new_status": "Yangi holatni tanlang:",
+        "updated": "✅ Status yangilandi: <b>{status}</b>",
+        "same_status": "⚠️ Bu holat allaqachon tanlangan",
+        "shipment_info": "📦 <b>Yuk ma'lumoti</b>\n━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>{name}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n📌 Joriy holat: <b>{status}</b>\n━━━━━━━━━━━━━━━━━━━━"
+    },
+    "view_cargos": {
+        "title": "🔍 Yuklarni ko'rish",
+        "select_filter": "Filtrlashni tanlang:",
+        "filter_by_status": "📋 Status bo'yicha",
+        "by_phone": "Telefon bo'yicha",
+        "by_cargo_id": "Cargo ID bo'yicha",
+        "by_status": "Status bo'yicha",
+        "search_by_phone": "📞 Qidirish uchun telefon raqamni kiriting:",
+        "search_by_cargo": "🆔 Qidirish uchun Cargo ID kiriting:",
+        "all_cargos": "📦 Barcha yuklar",
+        "page": "Sahifa {page}/{total}",
+        "no_cargos": "📭 Yuklar topilmadi",
+        "your_shipments": "Sizning yuklaringiz",
+        "select_status": "Statusni tanlang:"
+    },
+    "export": {
+        "title": "📥 Excel eksport",
+        "select_filter": "Eksport uchun filtrlashni tanlang:",
+        "generating": "⏳ Excel fayl generatsiya qilinmoqda...",
+        "done": "✅ Excel fayl tayyor!",
+        "file_name": "cargo_export_{date}.xlsx",
+        "no_data": "📭 Eksport uchun ma'lumot yo'q"
+    },
+    "my_cargo": {
+        "title": "🆔 <b>Mening Cargo ID im</b>",
+        "your_cargo_id": "🔢 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "your_shipments": "📦 <b>Yuklaringiz</b>",
+        "no_shipments": "📭 Hozircha yukingiz yo'q.",
+        "no_cargo_id": "⚠️ Sizga hali Cargo ID biriktirilmagan.",
+        "contact_admin": "📞 Iltimos, admin bilan bog'laning va Cargo ID olishni so'rang.",
+        "shipment_item": "<b>{idx}.</b> {description}\n   📌 {status}\n   📅 {date}"
+    },
+    "track_cargo": {
+        "title": "🔍 <b>Yukimni kuzatish</b>",
+        "request_cargo_id": "🔍 <b>Yukimni kuzatish</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 5 xonali Cargo ID raqamingizni kiriting:\n\nMisol: <code>48392</code>",
+        "cargo_not_found": "❌ Cargo ID topilmadi.\n\nIltimos, IDni qayta tekshirib kiriting.",
+        "no_access": "⛔ Bu Cargo ID siz bilan bog'liq emas.\n\nFaqat o'zingizning IDni kuzatishingiz mumkin.",
+        "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price} {currency}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "view_photo": "🖼️ Rasmni ko'rish"
+    },
+    "groups": {
+        "title": "🛍️ <b>Bizning guruhlar</b>",
+        "subtitle": "Quyidagi savdo guruhlariga qo'shiling va arzon narxlarda yangiliklardan xabardor bo'ling 👇",
+        "no_groups": "📭 Hozircha guruhlar yo'q.",
+        "join_group": "Guruhga qo'shilish uchun quyidagi tugmani bosing:"
+    },
+    "contacts": {
+        "title": "📞 <b>Biz bilan bog'lanish</b>",
+        "address": "📍 Manzil",
+        "address_not_specified": "Manzil ko'rsatilmagan",
+        "phones": "📱 Telefon",
+        "phones_not_specified": "Telefon raqami ko'rsatilmagan",
+        "telegram": "✈️ Telegram",
+        "telegram_not_specified": "@username",
+        "working_hours": "⏰ Ish vaqti",
+        "working_days": "Du-Sha: 09:00 - 18:00",
+        "china_office": "🇨🇳 <b>Xitoydagi ofisimiz</b>"
+    },
+    "settings": {
+        "title": "⚙️ <b>Sozlamalar</b>",
+        "current_language": "Hozirgi til:"
+    },
+    "change_language": {
+        "title": "🌐 Tilni o'zgartirish",
+        "select_language": "🌐 <b>Tilni tanlang:</b>",
+        "uzbek": "🇺🇿 O'zbek",
+        "russian": "🇷🇺 Русский",
+        "turkish": "🇹🇷 Türkçe",
+        "changed": "✅ <b>Til muvaffaqiyatli o'zgartirildi!</b>"
+    },
+    "notification": {
+        "status_updated": "📦 <b>Yukingiz holati yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n🔄 Yangi holat: <b>{status}</b>\n\n💬 {message}",
+        "status_messages": {
+            "pending": "Yukingiz kutilmoqda.",
+            "in_transit": "Yukingiz yo'lda.",
+            "arrived": "Yukingiz omborga yetib keldi.",
+            "ready": "Yukingizni olib ketishingiz mumkin.",
+            "delivered": "Yukingiz topshirildi."
+        },
+        "cargo_id_assigned": "✅ <b>Sizga Cargo ID biriktirildi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Ushbu IDni yuklarni kuzatish uchun ishlating.",
+        "cargo_id_updated": "🔄 <b>Sizning Cargo ID yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yangi ID: <b><code>{new_id}</code></b>"
+    },
+    "errors": {
+        "not_found": "❌ Topilmadi",
+        "no_access": "⛔ Bu ID siz bilan bog'liq emas",
+        "invalid_number": "⚠️ Faqat musbat son kiriting",
+        "invalid_phone": "⚠️ Noto'g'ri telefon raqam formati",
+        "no_permission": "🚫 Sizda bu amal uchun ruxsat yo'q",
+        "unknown_error": "❌ Noma'lum xato yuz berdi. Iltimos, keyinroq urinib ko'ring.",
+        "client_not_registered": "⚠️ Avval ro'yxatdan o'ting (/start)",
+        "cargo_id_exists": "⚠️ Bu Cargo ID allaqachon band",
+        "session_expired": "⚠️ Sessiya tugadi. Boshidan boshlang."
+    },
+    "currencies": {
+        "usd": "💵 USD",
+        "uzs": "💴 UZS"
+    }
+}

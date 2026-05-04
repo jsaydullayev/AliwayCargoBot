@@ -1,0 +1,211 @@
+{
+    "welcome": "🎉 <b>Aliway Cargo'ya hoş geldiniz!</b>\n\nÇin'den Özbekistan'a hızlı ve güvenilir teslimat hizmeti.",
+    "select_language": "🌐 <b>Tilni tanlang</b>\nВыберите язык\nDil seçin",
+    "language_selected": "✅ <b>Dil seçildi:</b> 🇹🇷 Türkçe",
+    "request_contact": "📞 <b>Telefon numaranızı paylaşın</b>\n\nHızlı paylaşım için aşağıdaki butonu kullanın.",
+    "contact_received": "✅ <b>Telefon numarası alındı!</b>",
+    "current_language": "{language}",
+    "buttons": {
+        "start": "🚀 Başla",
+        "back": "◀️ Geri",
+        "cancel": "❌ İptal",
+        "confirm": "✅ Onayla",
+        "skip": "⏭️ Atla",
+        "continue": "Devam et",
+        "yes": "✅ Evet",
+        "no": "❌ Hayır",
+        "change_language": "🌐 Dil değiştir",
+        "edit": "✏️ Düzenle",
+        "share_phone": "📞 Telefon numarasını paylaş"
+    },
+    "manager_menu": {
+        "title": "📊 Yönetici Paneli",
+        "select_action": "İşlem seçin:",
+        "buttons": {
+            "create_cargo": "➕ Yeni Cargo ID oluştur",
+            "manage_cargo": "📦 Yük ekle",
+            "update_status": "🔄 Durumu güncelle",
+            "view_cargos": "🔍 Yükleri görüntüle",
+            "export": "📥 Excel'e aktar"
+        }
+    },
+    "client_menu": {
+        "title": "👋 <b>Aliway Cargo</b>",
+        "tagline": "✨ Çin'den Özbekistan'a\n🚚 Hızlı ve güvenilir teslimat\n📦 Giyim, ayakkabı ve diğer eşyalar",
+        "footer": "Aşağıdan istediğiniz bölümü seçin ⬇️",
+        "buttons": {
+            "my_cargo": "🆔 Cargo ID'im",
+            "track_cargo": "🔍 Yükümü takip et",
+            "groups": "🛍️ Gruplarımız",
+            "contacts": "📞 İletişim",
+            "settings": "⚙️ Ayarlar",
+            "change_language": "🌐 Dil değiştir"
+        }
+    },
+    "status": {
+        "pending": "🕐 Bekleniyor",
+        "in_transit": "🚚 Yolda",
+        "arrived": "📦 Ulaştı",
+        "ready": "✅ Hazır",
+        "delivered": "🎉 Teslim edildi"
+    },
+    "create_cargo": {
+        "title": "🆕 Yeni Cargo ID oluştur",
+        "request_phone": "📞 Müşteri telefon numarasını girin:\n\nFormat: <code>+998901234567</code>",
+        "phone_format": "⚠️ Telefon numarasını şu formatta girin: <code>+998901234567</code>",
+        "client_not_found": "⚠️ Müşteri bulunamadı. Yeni müşteri oluşturulsun mu?",
+        "client_found": "✅ Müşteri bulundu!",
+        "client_info": {
+            "name": "İsim",
+            "phone": "Telefon",
+            "cargo_id": "Cargo ID",
+            "created_at": "Kayıt tarihi"
+        },
+        "existing_cargo": "⚠️ Bu müşteri zaten veritabanında mevcut!",
+        "no_cargo_id": "Bu müşteriye Cargo ID atanmamış.",
+        "new_cargo_confirm": "⚠️ <b>Onay</b>\n\nMüşterinin eski ID'si: <b>{old_id}</b>\nYeni ID oluşturulursa, eski ID silinmez, ancak müşterinin ana ID'si güncellenir.\n\nDevam etmek istiyor musunuz?",
+        "use_existing": "📋 Mevcut ID'yi kullan",
+        "create_new": "➕ Yeni ID oluştur",
+        "cargo_created": "✅ Cargo ID oluşturuldu: <b>{cargo_id}</b>",
+        "cargo_updated": "✅ Cargo ID güncellendi: <b>{old_id}</b> → <b>{new_id}</b>",
+        "client_added": "✅ <b>Yeni müşteri eklendi!</b>\n\n📞 Telefon: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "notification_sent": "💬 Müşteriye bildirim gönderildi.",
+        "confirm_client": "Doğru müşteri mi?"
+    },
+    "manage_cargo": {
+        "title": "📦 Yük ekle",
+        "request_cargo_id": "🆔 Cargo ID girin (5 haneli):",
+        "cargo_not_found": "❌ Cargo ID bulunamadı",
+        "client_found": "👤 <b>{name}</b>\n📞 <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "client_confirmation": {
+            "name": "Müşteri adı",
+            "phone": "Telefon",
+            "cargo_id": "Cargo ID"
+        },
+        "fields": {
+            "description": "📋 Yük açıklamasını girin (zorunlu):",
+            "weight": "⚖️ Yük ağırlığını girin (kg, opsiyonel):",
+            "cargo_weight": "📦 Paket ağırlığını girin (kg, opsiyonel):",
+            "price": "💰 Fiyat girin (opsiyonel):",
+            "currency": "💵 Para birimini seçin:",
+            "photo": "🖼️ Fotoğraf gönderin (opsiyonel):",
+            "notes": "📝 Ek notlar girin (opsiyonel):"
+        },
+        "errors": {
+            "description_required": "⚠️ Yük açıklaması zorunlu! Atlanamaz.",
+            "invalid_number": "⚠️ Yalnızca 0'dan büyük pozitif sayı girin!",
+            "invalid_cargo_id": "⚠️ Cargo ID 5 haneli sayı olmalıdır!"
+        },
+        "preview": "📋 <b>Yük bilgisi (kontrol)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Müşteri: <b>{client_name}</b>\n📋 Yük: <b>{description}</b>\n⚖️ Ağırlık: <b>{weight}</b>\n📦 Paket ağırlığı: <b>{cargo_weight}</b>\n💰 Fiyat: <b>{price} {currency}</b>\n📝 Notlar: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "confirm": "Yük bilgilerini kaydetmek istiyor musunuz?",
+        "saved": "✅ <b>Yük başarıyla kaydedildi!</b>",
+        "cancelled": "❌ İptal edildi."
+    },
+    "update_status": {
+        "title": "🔄 Durumu güncelle",
+        "request_cargo_id": "🆔 Cargo ID girin:",
+        "current_status": "Şu anki durum",
+        "current_status_label": "Şu anki durum: <b>{status}</b>",
+        "select_new_status": "Yeni durumu seçin:",
+        "updated": "✅ Durum güncellendi: <b>{status}</b>",
+        "same_status": "⚠️ Bu durum zaten seçili",
+        "shipment_info": "📦 <b>Yük bilgisi</b>\n━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>{name}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n📌 Şu anki durum: <b>{status}</b>\n━━━━━━━━━━━━━━━━━━━━"
+    },
+    "view_cargos": {
+        "title": "🔍 Yükleri görüntüle",
+        "select_filter": "Filtreyi seçin:",
+        "filter_by_status": "📋 Duruma göre",
+        "by_phone": "Telefona göre",
+        "by_cargo_id": "Cargo ID'ye göre",
+        "by_status": "Duruma göre",
+        "search_by_phone": "📞 Aramak için telefon numarası girin:",
+        "search_by_cargo": "🆔 Aramak için Cargo ID girin:",
+        "all_cargos": "📦 Tüm yükler",
+        "page": "Sayfa {page}/{total}",
+        "no_cargos": "📭 Yük bulunamadı",
+        "your_shipments": "Yükleriniz",
+        "select_status": "Durumu seçin:"
+    },
+    "export": {
+        "title": "📥 Excel'e aktar",
+        "select_filter": "Aktarmak için filtre seçin:",
+        "generating": "⏳ Excel dosyası oluşturuluyor...",
+        "done": "✅ Excel dosyası hazır!",
+        "file_name": "cargo_export_{date}.xlsx",
+        "no_data": "📭 Aktarılacak veri yok"
+    },
+    "my_cargo": {
+        "title": "🆔 <b>Cargo ID'im</b>",
+        "your_cargo_id": "🔢 Cargo ID: <b><code>{cargo_id}</code></b>",
+        "your_shipments": "📦 <b>Yükleriniz</b>",
+        "no_shipments": "📭 Henüz yükünüz yok.",
+        "no_cargo_id": "⚠️ Henüz size Cargo ID atanmadı.",
+        "contact_admin": "📞 Lütfen yöneticiyle iletişime geçin ve Cargo ID isteyin.",
+        "shipment_item": "<b>{idx}.</b> {description}\n   📌 {status}\n   📅 {date}"
+    },
+    "track_cargo": {
+        "title": "🔍 <b>Yükümü takip et</b>",
+        "request_cargo_id": "🔍 <b>Yükümü takip et</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 5 haneli Cargo ID'nizi girin:\n\nÖrnek: <code>48392</code>",
+        "cargo_not_found": "❌ Cargo ID bulunamadı.\n\nLütfen ID'yi kontrol edip tekrar deneyin.",
+        "no_access": "⛔ Bu Cargo ID size ait değil.\n\nYalnızca kendi ID'nizi takip edebilirsiniz.",
+        "cargo_info": "📦 <b>Yük bilgisi</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n⚖️ Ağırlık: <b>{weight}</b>\n📦 Paket ağırlığı: <b>{cargo_weight}</b>\n💰 Fiyat: <b>{price} {currency}</b>\n📌 Durum: <b>{status}</b>\n📝 Notlar: <b>{notes}</b>\n📅 Oluşturuldu: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "view_photo": "🖼️ Fotoğrafı görüntüle"
+    },
+    "groups": {
+        "title": "🛍️ <b>Gruplarımız</b>",
+        "subtitle": "Aşağıdaki ticaret gruplarına katılın ve uygun fiyat fırsatlarından haberdar olun 👇",
+        "no_groups": "📭 Henüz grup yok.",
+        "join_group": "Gruba katılmak için aşağıdaki butona tıklayın:"
+    },
+    "contacts": {
+        "title": "📞 <b>Bize ulaşın</b>",
+        "address": "📍 Adres",
+        "address_not_specified": "Adres belirtilmedi",
+        "phones": "📱 Telefon",
+        "phones_not_specified": "Telefon belirtilmedi",
+        "telegram": "✈️ Telegram",
+        "telegram_not_specified": "@username",
+        "working_hours": "⏰ Çalışma saatleri",
+        "working_days": "Pzt-Cmt: 09:00 - 18:00",
+        "china_office": "🇨🇳 <b>Çin'deki ofisimiz</b>"
+    },
+    "settings": {
+        "title": "⚙️ <b>Ayarlar</b>",
+        "current_language": "Şu anki dil:"
+    },
+    "change_language": {
+        "title": "🌐 Dil değiştir",
+        "select_language": "🌐 <b>Dil seçin:</b>",
+        "uzbek": "🇺🇿 O'zbek",
+        "russian": "🇷🇺 Русский",
+        "turkish": "🇹🇷 Türkçe",
+        "changed": "✅ <b>Dil başarıyla değiştirildi!</b>"
+    },
+    "notification": {
+        "status_updated": "📦 <b>Yük durumunuz güncellendi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n🔄 Yeni durum: <b>{status}</b>\n\n💬 {message}",
+        "status_messages": {
+            "pending": "Yükünüz bekleniyor.",
+            "in_transit": "Yükünüz yolda.",
+            "arrived": "Yükünüz depoya ulaştı.",
+            "ready": "Yükünüzü alabilirsiniz.",
+            "delivered": "Yükünüz teslim edildi."
+        },
+        "cargo_id_assigned": "✅ <b>Size Cargo ID atandı!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Yüklerinizi takip etmek için bu ID'yi kullanın.",
+        "cargo_id_updated": "🔄 <b>Cargo ID'niz güncellendi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yeni ID: <b><code>{new_id}</code></b>"
+    },
+    "errors": {
+        "not_found": "❌ Bulunamadı",
+        "no_access": "⛔ Bu ID size ait değil",
+        "invalid_number": "⚠️ Pozitif sayı girin",
+        "invalid_phone": "⚠️ Geçersiz telefon numarası formatı",
+        "no_permission": "🚫 Bu işleme erişiminiz yok",
+        "unknown_error": "❌ Bilinmeyen bir hata oluştu. Daha sonra tekrar deneyin.",
+        "client_not_registered": "⚠️ Önce kayıt olun (/start)",
+        "cargo_id_exists": "⚠️ Bu Cargo ID zaten kullanımda",
+        "session_expired": "⚠️ Oturum sona erdi. Yeniden başlayın."
+    },
+    "currencies": {
+        "usd": "💵 USD",
+        "uzs": "💴 UZS"
+    }
+}

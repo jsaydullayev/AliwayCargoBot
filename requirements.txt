@@ -1,0 +1,20 @@
+# Telegram Bot
+aiogram==3.5.0
+
+# Database
+sqlalchemy[asyncio]==2.0.30
+asyncpg==0.29.0
+alembic==1.13.1
+
+# Utilities
+python-dotenv==1.0.1
+openpyxl==3.1.5
+cachetools==5.3.3
+
+# Other
+pydantic<2.8,>=2.4.1
+pydantic-settings==2.3.4
+
+python-dotenv==1.0.1
+
+
