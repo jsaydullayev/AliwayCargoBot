@@ -32,44 +32,26 @@ async def show_contacts(
     parts = [title, SEPARATOR, ""]
 
     if info:
-        # Telegram
-        if info.telegram_account:
-            parts.append(f"{i18n.get_text(lang, 'contacts.telegram')}")
-            parts.append(f"   @{info.telegram_account}")
+        # Xitoy ofisi (barch tillarda bir xil ma'lumotlar)
+        cn_address = getattr(info, "address_cn", "") or ""
+        cn_phones = getattr(info, "phone_numbers_cn", []) or []
+        telegram_account = info.telegram_account or ""
+
+        if cn_address:
+            parts.append(f"{i18n.get_text(lang, 'contacts.address')}")
+            parts.append(f"   {cn_address}")
             parts.append("")
 
-        # Mahalliy telefon raqamlar
-        if info.phone_numbers:
+        if cn_phones:
             parts.append(f"{i18n.get_text(lang, 'contacts.phones')}")
-            for phone in info.phone_numbers:
+            for phone in cn_phones:
                 parts.append(f"   {phone}")
             parts.append("")
 
-        # Mahalliy manzil
-        address_field = f"address_{lang}"
-        address = getattr(info, address_field, None) or info.address_uz or ""
-        if address:
-            parts.append(f"{i18n.get_text(lang, 'contacts.address')}")
-            parts.append(f"   {address}")
+        if telegram_account:
+            parts.append(f"{i18n.get_text(lang, 'contacts.telegram')}")
+            parts.append(f"   @{telegram_account}")
             parts.append("")
-
-        # Ish vaqti
-        if info.working_hours:
-            parts.append(f"{i18n.get_text(lang, 'contacts.working_hours')}")
-            parts.append(f"   {info.working_hours}")
-            parts.append("")
-
-        # Xitoy ofisi
-        cn_address = getattr(info, "address_cn", "") or ""
-        cn_phones = getattr(info, "phone_numbers_cn", []) or []
-        if cn_address or cn_phones:
-            parts.append(SEPARATOR)
-            parts.append(i18n.get_text(lang, "contacts.china_office"))
-            parts.append("")
-            if cn_address:
-                parts.append(f"📍 {cn_address}")
-            if cn_phones:
-                parts.append(f"📱 {', '.join(cn_phones)}")
     else:
         parts.append(i18n.get_text(lang, "contacts.address_not_specified"))
 
