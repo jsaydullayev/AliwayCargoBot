@@ -44,8 +44,7 @@ async def show_change_lang(
     """Tilni to'g'ridan-to'g'ri o'zgartirish — `client:change_lang`"""
     lang = i18n.get_user_language(callback.from_user.id)
     await callback.message.edit_text(
-        f"🌐 <b>{i18n.get_text(lang, 'change_language.title')}</b>\n"
-        f"━━━━━━━━━━━━━━━━━━━━\n\n"
+        f"🌐 <b>{i18n.get_text(lang, 'change_language.title')}</b>\n\n"
         f"{i18n.get_text(lang, 'change_language.select_language')}",
         reply_markup=_language_settings_keyboard(i18n, lang),
     )
@@ -68,8 +67,7 @@ async def show_settings(
     current_label = lang_labels.get(lang, lang)
 
     text = (
-        f"{i18n.get_text(lang, 'settings.title')}\n"
-        f"━━━━━━━━━━━━━━━━━━━━\n\n"
+        f"{i18n.get_text(lang, 'settings.title')}\n\n"
         f"{i18n.get_text(lang, 'change_language.select_language')}\n\n"
         f"{i18n.get_text(lang, 'settings.current_language')} <b>{current_label}</b>"
     )

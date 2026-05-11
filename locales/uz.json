@@ -161,10 +161,10 @@
     },
     "track_cargo": {
         "title": "🔍 <b>Yukimni kuzatish</b>",
-        "request_cargo_id": "🔍 <b>Yukimni kuzatish</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 5 xonali Cargo ID raqamingizni kiriting:\n\nMisol: <code>48392</code>",
+        "request_cargo_id": "🔍 <b>Yukimni kuzatish</b>\n\n🆔 5 xonali Cargo ID raqamingizni kiriting:\n\nMisol: <code>48392</code>",
         "cargo_not_found": "❌ Cargo ID topilmadi.\n\nIltimos, IDni qayta tekshirib kiriting.",
         "no_access": "⛔ Bu Cargo ID siz bilan bog'liq emas.\n\nFaqat o'zingizning IDni kuzatishingiz mumkin.",
-        "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>",
         "view_photo": "🖼️ Rasmni ko'rish"
     },
     "groups": {
@@ -229,7 +229,7 @@
         "changed": "✅ <b>Til muvaffaqiyatli o'zgartirildi!</b>"
     },
     "notification": {
-        "status_updated": "📦 <b>Yukingiz holati yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n🔄 Yangi holat: <b>{status}</b>\n\n💬 {message}",
+        "status_updated": "📦 <b>Yukingiz holati yangilandi!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n🔄 Yangi holat: <b>{status}</b>\n\n💬 {message}",
         "status_messages": {
             "pending": "Yukingiz kutilmoqda.",
             "in_transit": "Yukingiz yo'lda.",
@@ -237,8 +237,8 @@
             "ready": "Yukingizni olib ketishingiz mumkin.",
             "delivered": "Yukingiz topshirildi."
         },
-        "cargo_id_assigned": "✅ <b>Sizga Cargo ID biriktirildi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Ushbu IDni yuklarni kuzatish uchun ishlating.",
-        "cargo_id_updated": "🔄 <b>Sizning Cargo ID yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yangi ID: <b><code>{new_id}</code></b>"
+        "cargo_id_assigned": "✅ <b>Sizga Cargo ID biriktirildi!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Ushbu IDni yuklarni kuzatish uchun ishlating.",
+        "cargo_id_updated": "🔄 <b>Sizning Cargo ID yangilandi!</b>\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yangi ID: <b><code>{new_id}</code></b>"
     },
     "errors": {
         "not_found": "❌ Topilmadi",

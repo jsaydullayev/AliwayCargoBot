@@ -96,12 +96,11 @@ async def show_main_menu(
         cn_phones = getattr(company_info, "phone_numbers_cn", []) or []
         if cn_address or cn_phones:
             china_label = i18n.get_text(lang, "contacts.china_office")
-            text += f"\n\n━━━━━━━━━━━━━━━━━━━━\n{china_label}"
+            text += f"\n\n{china_label}"
             if cn_address:
                 text += f"\n📍 {cn_address}"
             if cn_phones:
                 text += f"\n📱 {', '.join(cn_phones)}"
-            text += "\n━━━━━━━━━━━━━━━━━━━━"
 
     text += f"\n\n{footer}"
 

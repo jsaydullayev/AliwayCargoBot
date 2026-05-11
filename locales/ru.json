@@ -161,10 +161,10 @@
     },
     "track_cargo": {
         "title": "🔍 <b>Отследить груз</b>",
-        "request_cargo_id": "🔍 <b>Отследить груз</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 Введите ваш 5-значный Cargo ID:\n\nПример: <code>48392</code>",
+        "request_cargo_id": "🔍 <b>Отследить груз</b>\n\n🆔 Введите ваш 5-значный Cargo ID:\n\nПример: <code>48392</code>",
         "cargo_not_found": "❌ Cargo ID не найден.\n\nПожалуйста, проверьте ID и попробуйте снова.",
         "no_access": "⛔ Этот Cargo ID не принадлежит вам.\n\nВы можете отслеживать только свой ID.",
-        "cargo_info": "📦 <b>Информация о грузе</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price}</b>\n📌 Статус: <b>{status}</b>\n📝 Заметки: <b>{notes}</b>\n📅 Создан: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "cargo_info": "📦 <b>Информация о грузе</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price}</b>\n📌 Статус: <b>{status}</b>\n📝 Заметки: <b>{notes}</b>\n📅 Создан: <b>{created_at}</b>",
         "view_photo": "🖼️ Посмотреть фото"
     },
     "groups": {
@@ -229,7 +229,7 @@
         "changed": "✅ <b>Язык успешно изменён!</b>"
     },
     "notification": {
-        "status_updated": "📦 <b>Статус вашего груза обновлён!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n🔄 Новый статус: <b>{status}</b>\n\n💬 {message}",
+        "status_updated": "📦 <b>Статус вашего груза обновлён!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n🔄 Новый статус: <b>{status}</b>\n\n💬 {message}",
         "status_messages": {
             "pending": "Ваш груз ожидается.",
             "in_transit": "Ваш груз в пути.",
@@ -237,8 +237,8 @@
             "ready": "Вы можете забрать ваш груз.",
             "delivered": "Ваш груз выдан."
         },
-        "cargo_id_assigned": "✅ <b>Вам назначен Cargo ID!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Используйте этот ID для отслеживания грузов.",
-        "cargo_id_updated": "🔄 <b>Ваш Cargo ID обновлён!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Старый ID: <b>{old_id}</b>\n🆔 Новый ID: <b><code>{new_id}</code></b>"
+        "cargo_id_assigned": "✅ <b>Вам назначен Cargo ID!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Используйте этот ID для отслеживания грузов.",
+        "cargo_id_updated": "🔄 <b>Ваш Cargo ID обновлён!</b>\n\n🆔 Старый ID: <b>{old_id}</b>\n🆔 Новый ID: <b><code>{new_id}</code></b>"
     },
     "errors": {
         "not_found": "❌ Не найдено",

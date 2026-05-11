@@ -19,8 +19,6 @@ from database.database import get_session
 logger = logging.getLogger(__name__)
 groups_router = Router()
 
-SEPARATOR = "━━━━━━━━━━━━━━━━━━━━"
-
 
 def _localized_name(obj, lang: str) -> str:
     return getattr(obj, f"name_{lang}", None) or obj.name_uz
@@ -44,7 +42,7 @@ async def show_categories(
                 filtered.append(cat)
 
     title = i18n.get_text(lang, "groups.title")
-    parts = [title, SEPARATOR, ""]
+    parts = [title, ""]
 
     if not filtered:
         parts.append(i18n.get_text(lang, "groups.no_groups"))
@@ -104,7 +102,6 @@ async def show_groups_in_category(
     cat_name = _localized_name(category, lang)
     parts = [
         i18n.get_text(lang, "groups.category_title", name=f"{category.emoji} {cat_name}"),
-        SEPARATOR,
         "",
     ]
 
