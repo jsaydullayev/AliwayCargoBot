@@ -15,6 +15,3 @@ cachetools==5.3.3
 pydantic<2.8,>=2.4.1
 pydantic-settings==2.3.4
 
-python-dotenv==1.0.1
-
-

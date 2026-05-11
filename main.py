@@ -28,6 +28,7 @@ from bot.handlers.manager.manage_cargo import manage_cargo_router
 from bot.handlers.manager.update_status import update_status_router
 from bot.handlers.manager.view_cargos import view_cargos_router
 from bot.handlers.manager.export import export_router
+from bot.handlers.manager.groups import groups_admin_router
 
 
 logging.basicConfig(
@@ -60,6 +61,7 @@ async def main() -> None:
     dp.include_router(update_status_router)
     dp.include_router(view_cargos_router)
     dp.include_router(export_router)
+    dp.include_router(groups_admin_router)
 
     # === Client router'lar ===
     dp.include_router(onboarding_router)

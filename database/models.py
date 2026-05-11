@@ -76,11 +76,30 @@ class Shipment(Base):
         return f"<Shipment(id={self.id}, cargo_id='{self.client.cargo_id if self.client else None}', status='{self.status}')>"
 
 
+class GroupCategory(Base):
+    """Guruh kategoriyalari (masalan: Erkaklar kiyimi, Ayollar kiyimi)"""
+    __tablename__ = "group_categories"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name_uz = Column(String(255), nullable=False)
+    name_ru = Column(String(255), nullable=False)
+    name_tr = Column(String(255), nullable=False)
+    emoji = Column(String(10), nullable=False, default="📂")
+    is_active = Column(Boolean, default=True, nullable=False)
+    sort_order = Column(Integer, default=0, nullable=False)
+
+    groups = relationship("Group", back_populates="category", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<GroupCategory(id={self.id}, name_uz='{self.name_uz}')>"
+
+
 class Group(Base):
-    """Savdo guruhlari jadvali"""
+    """Savdo guruhlari jadvali (kategoriya ichida)"""
     __tablename__ = "groups"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    category_id = Column(Integer, ForeignKey("group_categories.id", ondelete="SET NULL"), nullable=True, index=True)
     name_uz = Column(String(255), nullable=False)
     name_ru = Column(String(255), nullable=False)
     name_tr = Column(String(255), nullable=False)
@@ -89,8 +108,10 @@ class Group(Base):
     is_active = Column(Boolean, default=True, nullable=False)
     sort_order = Column(Integer, default=0, nullable=False)
 
+    category = relationship("GroupCategory", back_populates="groups")
+
     def __repr__(self):
-        return f"<Group(id={self.id}, name_uz='{self.name_uz}')>"
+        return f"<Group(id={self.id}, name_uz='{self.name_uz}', category_id={self.category_id})>"
 
 
 class CompanyInfo(Base):

@@ -61,30 +61,36 @@ async def cargo_id_input(
         await message.answer(i18n.get_text(lang, "manage_cargo.errors.invalid_cargo_id"))
         return
 
+    back_kb = navigation_keyboard(lang=lang, i18n=i18n, back_callback="client:menu")
+
     async with get_session() as session:
         client = await client_crud.get_by_cargo_id(session, cargo_id)
 
         if not client:
-            # ERR_NOT_FOUND
-            await message.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"))
+            await message.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"), reply_markup=back_kb)
             await state.clear()
             return
 
         # Tegishlilik tekshiruvi: telegram_id mos kelishi shart (TZ §6.4)
         if client.telegram_id != message.from_user.id:
-            # ERR_NO_ACCESS
-            await message.answer(i18n.get_text(lang, "track_cargo.no_access"))
+            await message.answer(i18n.get_text(lang, "track_cargo.no_access"), reply_markup=back_kb)
             await state.clear()
             return
 
         latest = await shipment_crud.get_latest_by_cargo_id(session, cargo_id)
 
     if not latest:
-        await message.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"))
+        await message.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"), reply_markup=back_kb)
         await state.clear()
         return
 
     status_text = i18n.get_text(lang, STATUS_KEY_MAP.get(latest.status, ""))
+
+    # Price + currency birga shakllantirish — bo'sh valyutada trailing space bo'lmaydi
+    if latest.price:
+        price_display = f"{latest.price} {latest.currency or ''}".strip()
+    else:
+        price_display = "—"
 
     info_text = i18n.get_text(
         lang,
@@ -93,8 +99,7 @@ async def cargo_id_input(
         description=latest.description or "—",
         weight=f"{latest.weight_kg} kg" if latest.weight_kg else "—",
         cargo_weight=f"{latest.cargo_weight_kg} kg" if latest.cargo_weight_kg else "—",
-        price=latest.price or "—",
-        currency=latest.currency or "",
+        price=price_display,
         status=status_text,
         notes=latest.notes or "—",
         created_at=latest.created_at.strftime("%d.%m.%Y %H:%M") if latest.created_at else "—",
