@@ -136,6 +136,43 @@ class ClientCRUD:
         return result.scalar() or 0
 
     @staticmethod
+    async def get_all_for_export(
+        session: AsyncSession,
+        with_cargo_id_only: bool = False,
+    ) -> List[tuple]:
+        """
+        Excel eksport uchun barcha mijozlarni yuklar soni bilan olish
+
+        Returns:
+            Tuple ro'yxati: (cargo_id, full_name, phone, telegram_id, language, created_at, shipments_count)
+        """
+        shipments_count_subq = (
+            select(Shipment.client_id, func.count(Shipment.id).label("ship_count"))
+            .group_by(Shipment.client_id)
+            .subquery()
+        )
+
+        query = (
+            select(
+                Client.cargo_id,
+                Client.full_name,
+                Client.phone_number,
+                Client.telegram_id,
+                Client.language,
+                Client.created_at,
+                func.coalesce(shipments_count_subq.c.ship_count, 0),
+            )
+            .outerjoin(shipments_count_subq, shipments_count_subq.c.client_id == Client.id)
+            .order_by(Client.created_at.desc())
+        )
+
+        if with_cargo_id_only:
+            query = query.where(Client.cargo_id.is_not(None))
+
+        result = await session.execute(query)
+        return list(result.all())
+
+    @staticmethod
     async def count_with_cargo_id(
         session: AsyncSession,
         created_by: Optional[int] = None,

@@ -14,8 +14,6 @@ from database.database import get_session
 logger = logging.getLogger(__name__)
 contacts_router = Router()
 
-SEPARATOR = "━━━━━━━━━━━━━━━━━━━━"
-
 
 @contacts_router.callback_query(F.data == "client:contacts")
 async def show_contacts(
@@ -29,7 +27,7 @@ async def show_contacts(
         info = await company_info_crud.get(session)
 
     title = i18n.get_text(lang, "contacts.title")
-    parts = [title, SEPARATOR, ""]
+    parts = [title, ""]
 
     if info:
         # Xitoy ofisi (barch tillarda bir xil ma'lumotlar)

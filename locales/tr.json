@@ -27,7 +27,6 @@
             "update_status": "🔄 Durumu güncelle",
             "view_cargos": "🔍 Yükleri görüntüle",
             "export": "📥 Excel'e aktar",
-            "groups": "🛍️ Gruplar",
             "stats": "📊 İstatistik"
         }
     },
@@ -137,6 +136,8 @@
         "done": "✅ Excel dosyası hazır!",
         "file_name": "cargo_export_{date}.xlsx",
         "no_data": "📭 Aktarılacak veri yok",
+        "clients_button": "👥 Müşteri listesi",
+        "clients_done": "Müşteri Excel dosyası hazır ({count} müşteri)",
         "stats_button": "📊 İstatistik",
         "stats_title": "📊 <b>İstatistik</b>",
         "stats_my_section": "👤 <b>Faaliyetim</b>",
@@ -161,10 +162,10 @@
     },
     "track_cargo": {
         "title": "🔍 <b>Yükümü takip et</b>",
-        "request_cargo_id": "🔍 <b>Yükümü takip et</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 5 haneli Cargo ID'nizi girin:\n\nÖrnek: <code>48392</code>",
+        "request_cargo_id": "🔍 <b>Yükümü takip et</b>\n\n🆔 5 haneli Cargo ID'nizi girin:\n\nÖrnek: <code>48392</code>",
         "cargo_not_found": "❌ Cargo ID bulunamadı.\n\nLütfen ID'yi kontrol edip tekrar deneyin.",
         "no_access": "⛔ Bu Cargo ID size ait değil.\n\nYalnızca kendi ID'nizi takip edebilirsiniz.",
-        "cargo_info": "📦 <b>Yük bilgisi</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n⚖️ Ağırlık: <b>{weight}</b>\n📦 Paket ağırlığı: <b>{cargo_weight}</b>\n💰 Fiyat: <b>{price}</b>\n📌 Durum: <b>{status}</b>\n📝 Notlar: <b>{notes}</b>\n📅 Oluşturuldu: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "cargo_info": "📦 <b>Yük bilgisi</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n⚖️ Ağırlık: <b>{weight}</b>\n📦 Paket ağırlığı: <b>{cargo_weight}</b>\n💰 Fiyat: <b>{price}</b>\n📌 Durum: <b>{status}</b>\n📝 Notlar: <b>{notes}</b>\n📅 Oluşturuldu: <b>{created_at}</b>",
         "view_photo": "🖼️ Fotoğrafı görüntüle"
     },
     "groups": {
@@ -175,34 +176,6 @@
         "category_title": "📂 <b>{name}</b>",
         "category_subtitle": "Gruplardan birini seçin 👇",
         "no_groups_in_category": "📭 Bu kategoride henüz grup yok."
-    },
-    "groups_admin": {
-        "title": "🛍️ <b>Grup yönetimi</b>",
-        "categories_section": "📂 <b>Kategoriler:</b>",
-        "no_categories": "📭 Henüz kategori yok.\n\nÖnce kategori ekleyin, ardından grupları bağlayın.",
-        "add_category_button": "➕ Yeni kategori",
-        "add_group_button": "➕ Yeni grup",
-        "category_view_title": "📂 <b>{name}</b>",
-        "groups_in_category": "🛍️ <b>Gruplar:</b>",
-        "no_groups_in_category": "📭 Bu kategoride henüz grup yok.",
-        "select_category_for_group": "📂 Yeni grup hangi kategoriye ait?",
-        "category_input_emoji": "🎨 Kategori için emoji gönderin (veya atlayın):",
-        "category_input_name_uz": "🇺🇿 Kategori adını <b>Özbekçe</b> yazın:",
-        "category_input_name_ru": "🇷🇺 Kategori adını <b>Rusça</b> yazın:",
-        "category_input_name_tr": "🇹🇷 Kategori adını <b>Türkçe</b> yazın:",
-        "category_preview": "📂 <b>Yeni kategori:</b>\n━━━━━━━━━━━━━━━━━━━━\n{emoji} <b>Özbekçe:</b> {name_uz}\n{emoji} <b>Rusça:</b> {name_ru}\n{emoji} <b>Türkçe:</b> {name_tr}\n━━━━━━━━━━━━━━━━━━━━\n\nKaydedilsin mi?",
-        "category_saved": "✅ Kategori eklendi!\n\n<b>{name}</b>",
-        "input_emoji": "🎨 Grup için emoji gönderin (veya atlayın):",
-        "input_name_uz": "🇺🇿 Grup adını <b>Özbekçe</b> yazın (örneğin: Premium, Economy):",
-        "input_name_ru": "🇷🇺 Grup adını <b>Rusça</b> yazın:",
-        "input_name_tr": "🇹🇷 Grup adını <b>Türkçe</b> yazın:",
-        "input_link": "🔗 Telegram grup bağlantısını gönderin\n(örneğin: <code>https://t.me/groupname</code> veya <code>@groupname</code>)",
-        "invalid_emoji": "❌ Emoji 10 karakterden uzun olmamalı.",
-        "invalid_name": "❌ Ad boş olamaz. Tekrar girin:",
-        "invalid_link": "❌ Geçersiz bağlantı. <code>https://t.me/...</code> veya <code>@username</code> formatında gönderin:",
-        "preview": "📋 <b>Yeni grup:</b>\n━━━━━━━━━━━━━━━━━━━━\n📂 <b>Kategori:</b> {category_name}\n{emoji} <b>Özbekçe:</b> {name_uz}\n{emoji} <b>Rusça:</b> {name_ru}\n{emoji} <b>Türkçe:</b> {name_tr}\n🔗 <b>Bağlantı:</b> {link}\n━━━━━━━━━━━━━━━━━━━━\n\nKaydedilsin mi?",
-        "saved": "✅ Grup başarıyla eklendi!\n\n<b>{name}</b>",
-        "cancelled": "❌ İptal edildi"
     },
     "contacts": {
         "title": "📞 <b>Bize ulaşın</b>",
@@ -229,7 +202,7 @@
         "changed": "✅ <b>Dil başarıyla değiştirildi!</b>"
     },
     "notification": {
-        "status_updated": "📦 <b>Yük durumunuz güncellendi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n🔄 Yeni durum: <b>{status}</b>\n\n💬 {message}",
+        "status_updated": "📦 <b>Yük durumunuz güncellendi!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n🔄 Yeni durum: <b>{status}</b>\n\n💬 {message}",
         "status_messages": {
             "pending": "Yükünüz bekleniyor.",
             "in_transit": "Yükünüz yolda.",
@@ -237,8 +210,8 @@
             "ready": "Yükünüzü alabilirsiniz.",
             "delivered": "Yükünüz teslim edildi."
         },
-        "cargo_id_assigned": "✅ <b>Size Cargo ID atandı!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Yüklerinizi takip etmek için bu ID'yi kullanın.",
-        "cargo_id_updated": "🔄 <b>Cargo ID'niz güncellendi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yeni ID: <b><code>{new_id}</code></b>"
+        "cargo_id_assigned": "✅ <b>Size Cargo ID atandı!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Yüklerinizi takip etmek için bu ID'yi kullanın.",
+        "cargo_id_updated": "🔄 <b>Cargo ID'niz güncellendi!</b>\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yeni ID: <b><code>{new_id}</code></b>"
     },
     "errors": {
         "not_found": "❌ Bulunamadı",

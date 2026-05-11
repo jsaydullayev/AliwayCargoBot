@@ -15,8 +15,6 @@ from database.database import get_session
 logger = logging.getLogger(__name__)
 my_cargo_router = Router()
 
-SEPARATOR = "━━━━━━━━━━━━━━━━━━━━"
-
 
 @my_cargo_router.callback_query(F.data == "client:my_cargo")
 async def show_my_cargo(
@@ -40,8 +38,7 @@ async def show_my_cargo(
 
         if not client.cargo_id:
             text = (
-                f"{i18n.get_text(lang, 'my_cargo.title')}\n"
-                f"{SEPARATOR}\n\n"
+                f"{i18n.get_text(lang, 'my_cargo.title')}\n\n"
                 f"{i18n.get_text(lang, 'my_cargo.no_cargo_id')}\n\n"
                 f"{i18n.get_text(lang, 'my_cargo.contact_admin')}"
             )
@@ -56,7 +53,6 @@ async def show_my_cargo(
 
     text_parts = [
         i18n.get_text(lang, "my_cargo.title"),
-        SEPARATOR,
         "",
         i18n.get_text(lang, "my_cargo.your_cargo_id", cargo_id=client.cargo_id),
         "",

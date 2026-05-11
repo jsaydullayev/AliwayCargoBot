@@ -27,7 +27,6 @@
             "update_status": "🔄 Обновить статус",
             "view_cargos": "🔍 Просмотреть грузы",
             "export": "📥 Экспорт в Excel",
-            "groups": "🛍️ Группы",
             "stats": "📊 Статистика"
         }
     },
@@ -137,6 +136,8 @@
         "done": "✅ Excel файл готов!",
         "file_name": "cargo_export_{date}.xlsx",
         "no_data": "📭 Нет данных для экспорта",
+        "clients_button": "👥 Список клиентов",
+        "clients_done": "Excel файл клиентов готов ({count} клиентов)",
         "stats_button": "📊 Статистика",
         "stats_title": "📊 <b>Статистика</b>",
         "stats_my_section": "👤 <b>Моя активность</b>",
@@ -161,10 +162,10 @@
     },
     "track_cargo": {
         "title": "🔍 <b>Отследить груз</b>",
-        "request_cargo_id": "🔍 <b>Отследить груз</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 Введите ваш 5-значный Cargo ID:\n\nПример: <code>48392</code>",
+        "request_cargo_id": "🔍 <b>Отследить груз</b>\n\n🆔 Введите ваш 5-значный Cargo ID:\n\nПример: <code>48392</code>",
         "cargo_not_found": "❌ Cargo ID не найден.\n\nПожалуйста, проверьте ID и попробуйте снова.",
         "no_access": "⛔ Этот Cargo ID не принадлежит вам.\n\nВы можете отслеживать только свой ID.",
-        "cargo_info": "📦 <b>Информация о грузе</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price}</b>\n📌 Статус: <b>{status}</b>\n📝 Заметки: <b>{notes}</b>\n📅 Создан: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "cargo_info": "📦 <b>Информация о грузе</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price}</b>\n📌 Статус: <b>{status}</b>\n📝 Заметки: <b>{notes}</b>\n📅 Создан: <b>{created_at}</b>",
         "view_photo": "🖼️ Посмотреть фото"
     },
     "groups": {
@@ -175,34 +176,6 @@
         "category_title": "📂 <b>{name}</b>",
         "category_subtitle": "Выберите одну из групп 👇",
         "no_groups_in_category": "📭 В этой категории пока нет групп."
-    },
-    "groups_admin": {
-        "title": "🛍️ <b>Управление группами</b>",
-        "categories_section": "📂 <b>Категории:</b>",
-        "no_categories": "📭 Пока нет категорий.\n\nСначала добавьте категорию, затем привяжите к ней группы.",
-        "add_category_button": "➕ Новая категория",
-        "add_group_button": "➕ Новая группа",
-        "category_view_title": "📂 <b>{name}</b>",
-        "groups_in_category": "🛍️ <b>Группы:</b>",
-        "no_groups_in_category": "📭 В этой категории пока нет групп.",
-        "select_category_for_group": "📂 К какой категории относится новая группа?",
-        "category_input_emoji": "🎨 Отправьте эмодзи для категории (или пропустите):",
-        "category_input_name_uz": "🇺🇿 Введите название категории на <b>узбекском</b>:",
-        "category_input_name_ru": "🇷🇺 Введите название категории на <b>русском</b>:",
-        "category_input_name_tr": "🇹🇷 Введите название категории на <b>турецком</b>:",
-        "category_preview": "📂 <b>Новая категория:</b>\n━━━━━━━━━━━━━━━━━━━━\n{emoji} <b>Узбекское:</b> {name_uz}\n{emoji} <b>Русское:</b> {name_ru}\n{emoji} <b>Турецкое:</b> {name_tr}\n━━━━━━━━━━━━━━━━━━━━\n\nСохранить?",
-        "category_saved": "✅ Категория добавлена!\n\n<b>{name}</b>",
-        "input_emoji": "🎨 Отправьте эмодзи для группы (или пропустите):",
-        "input_name_uz": "🇺🇿 Введите название группы на <b>узбекском</b> (например: Premium, Economy):",
-        "input_name_ru": "🇷🇺 Введите название группы на <b>русском</b>:",
-        "input_name_tr": "🇹🇷 Введите название группы на <b>турецком</b>:",
-        "input_link": "🔗 Отправьте ссылку на Telegram-группу\n(например: <code>https://t.me/groupname</code> или <code>@groupname</code>)",
-        "invalid_emoji": "❌ Эмодзи должен быть не длиннее 10 символов.",
-        "invalid_name": "❌ Название не может быть пустым. Введите снова:",
-        "invalid_link": "❌ Неверная ссылка. Отправьте в формате <code>https://t.me/...</code> или <code>@username</code>:",
-        "preview": "📋 <b>Новая группа:</b>\n━━━━━━━━━━━━━━━━━━━━\n📂 <b>Категория:</b> {category_name}\n{emoji} <b>Узбекское:</b> {name_uz}\n{emoji} <b>Русское:</b> {name_ru}\n{emoji} <b>Турецкое:</b> {name_tr}\n🔗 <b>Ссылка:</b> {link}\n━━━━━━━━━━━━━━━━━━━━\n\nСохранить?",
-        "saved": "✅ Группа успешно добавлена!\n\n<b>{name}</b>",
-        "cancelled": "❌ Отменено"
     },
     "contacts": {
         "title": "📞 <b>Связаться с нами</b>",
@@ -229,7 +202,7 @@
         "changed": "✅ <b>Язык успешно изменён!</b>"
     },
     "notification": {
-        "status_updated": "📦 <b>Статус вашего груза обновлён!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n🔄 Новый статус: <b>{status}</b>\n\n💬 {message}",
+        "status_updated": "📦 <b>Статус вашего груза обновлён!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n🔄 Новый статус: <b>{status}</b>\n\n💬 {message}",
         "status_messages": {
             "pending": "Ваш груз ожидается.",
             "in_transit": "Ваш груз в пути.",
@@ -237,8 +210,8 @@
             "ready": "Вы можете забрать ваш груз.",
             "delivered": "Ваш груз выдан."
         },
-        "cargo_id_assigned": "✅ <b>Вам назначен Cargo ID!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Используйте этот ID для отслеживания грузов.",
-        "cargo_id_updated": "🔄 <b>Ваш Cargo ID обновлён!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Старый ID: <b>{old_id}</b>\n🆔 Новый ID: <b><code>{new_id}</code></b>"
+        "cargo_id_assigned": "✅ <b>Вам назначен Cargo ID!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Используйте этот ID для отслеживания грузов.",
+        "cargo_id_updated": "🔄 <b>Ваш Cargo ID обновлён!</b>\n\n🆔 Старый ID: <b>{old_id}</b>\n🆔 Новый ID: <b><code>{new_id}</code></b>"
     },
     "errors": {
         "not_found": "❌ Не найдено",

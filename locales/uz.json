@@ -27,7 +27,6 @@
             "update_status": "🔄 Status yangilash",
             "view_cargos": "🔍 Yuklarni ko'rish",
             "export": "📥 Excel eksport",
-            "groups": "🛍️ Guruhlar",
             "stats": "📊 Statistika"
         }
     },
@@ -137,6 +136,8 @@
         "done": "✅ Excel fayl tayyor!",
         "file_name": "cargo_export_{date}.xlsx",
         "no_data": "📭 Eksport uchun ma'lumot yo'q",
+        "clients_button": "👥 Mijozlar ro'yxati",
+        "clients_done": "Mijozlar Excel fayli tayyor ({count} ta mijoz)",
         "stats_button": "📊 Statistika",
         "stats_title": "📊 <b>Statistika</b>",
         "stats_my_section": "👤 <b>Mening faoliyatim</b>",
@@ -161,10 +162,10 @@
     },
     "track_cargo": {
         "title": "🔍 <b>Yukimni kuzatish</b>",
-        "request_cargo_id": "🔍 <b>Yukimni kuzatish</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 5 xonali Cargo ID raqamingizni kiriting:\n\nMisol: <code>48392</code>",
+        "request_cargo_id": "🔍 <b>Yukimni kuzatish</b>\n\n🆔 5 xonali Cargo ID raqamingizni kiriting:\n\nMisol: <code>48392</code>",
         "cargo_not_found": "❌ Cargo ID topilmadi.\n\nIltimos, IDni qayta tekshirib kiriting.",
         "no_access": "⛔ Bu Cargo ID siz bilan bog'liq emas.\n\nFaqat o'zingizning IDni kuzatishingiz mumkin.",
-        "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>",
         "view_photo": "🖼️ Rasmni ko'rish"
     },
     "groups": {
@@ -175,34 +176,6 @@
         "category_title": "📂 <b>{name}</b>",
         "category_subtitle": "Quyidagi guruhlardan birini tanlang 👇",
         "no_groups_in_category": "📭 Bu kategoriyada hali guruh yo'q."
-    },
-    "groups_admin": {
-        "title": "🛍️ <b>Guruhlarni boshqarish</b>",
-        "categories_section": "📂 <b>Kategoriyalar:</b>",
-        "no_categories": "📭 Hozircha kategoriya yo'q.\n\nAvval kategoriya qo'shing, keyin guruhlarni unga biriktirasiz.",
-        "add_category_button": "➕ Yangi kategoriya",
-        "add_group_button": "➕ Yangi guruh",
-        "category_view_title": "📂 <b>{name}</b>",
-        "groups_in_category": "🛍️ <b>Guruhlar:</b>",
-        "no_groups_in_category": "📭 Bu kategoriyada hali guruh yo'q.",
-        "select_category_for_group": "📂 Yangi guruh qaysi kategoriyaga tegishli?",
-        "category_input_emoji": "🎨 Kategoriya uchun emoji yuboring (yoki o'tkazib yuboring):",
-        "category_input_name_uz": "🇺🇿 Kategoriya nomini <b>O'zbekcha</b> yozing:",
-        "category_input_name_ru": "🇷🇺 Kategoriya nomini <b>Ruscha</b> yozing:",
-        "category_input_name_tr": "🇹🇷 Kategoriya nomini <b>Turkcha</b> yozing:",
-        "category_preview": "📂 <b>Yangi kategoriya:</b>\n━━━━━━━━━━━━━━━━━━━━\n{emoji} <b>O'zbekcha:</b> {name_uz}\n{emoji} <b>Ruscha:</b> {name_ru}\n{emoji} <b>Turkcha:</b> {name_tr}\n━━━━━━━━━━━━━━━━━━━━\n\nSaqlaymizmi?",
-        "category_saved": "✅ Kategoriya qo'shildi!\n\n<b>{name}</b>",
-        "input_emoji": "🎨 Guruh uchun emoji yuboring (yoki o'tkazib yuboring):",
-        "input_name_uz": "🇺🇿 Guruh nomini <b>O'zbekcha</b> yozing (masalan: Premium, Economy):",
-        "input_name_ru": "🇷🇺 Guruh nomini <b>Ruscha</b> yozing:",
-        "input_name_tr": "🇹🇷 Guruh nomini <b>Turkcha</b> yozing:",
-        "input_link": "🔗 Telegram guruh havolasini yuboring\n(masalan: <code>https://t.me/groupname</code> yoki <code>@groupname</code>)",
-        "invalid_emoji": "❌ Emoji 10 belgidan ko'p bo'lmasligi kerak.",
-        "invalid_name": "❌ Nom bo'sh bo'lmasligi kerak. Qayta kiriting:",
-        "invalid_link": "❌ Noto'g'ri havola. <code>https://t.me/...</code> yoki <code>@username</code> formatida yuboring:",
-        "preview": "📋 <b>Yangi guruh:</b>\n━━━━━━━━━━━━━━━━━━━━\n📂 <b>Kategoriya:</b> {category_name}\n{emoji} <b>O'zbekcha:</b> {name_uz}\n{emoji} <b>Ruscha:</b> {name_ru}\n{emoji} <b>Turkcha:</b> {name_tr}\n🔗 <b>Havola:</b> {link}\n━━━━━━━━━━━━━━━━━━━━\n\nSaqlaymizmi?",
-        "saved": "✅ Guruh muvaffaqiyatli qo'shildi!\n\n<b>{name}</b>",
-        "cancelled": "❌ Bekor qilindi"
     },
     "contacts": {
         "title": "📞 <b>Biz bilan bog'lanish</b>",
@@ -229,7 +202,7 @@
         "changed": "✅ <b>Til muvaffaqiyatli o'zgartirildi!</b>"
     },
     "notification": {
-        "status_updated": "📦 <b>Yukingiz holati yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n🔄 Yangi holat: <b>{status}</b>\n\n💬 {message}",
+        "status_updated": "📦 <b>Yukingiz holati yangilandi!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n🔄 Yangi holat: <b>{status}</b>\n\n💬 {message}",
         "status_messages": {
             "pending": "Yukingiz kutilmoqda.",
             "in_transit": "Yukingiz yo'lda.",
@@ -237,8 +210,8 @@
             "ready": "Yukingizni olib ketishingiz mumkin.",
             "delivered": "Yukingiz topshirildi."
         },
-        "cargo_id_assigned": "✅ <b>Sizga Cargo ID biriktirildi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Ushbu IDni yuklarni kuzatish uchun ishlating.",
-        "cargo_id_updated": "🔄 <b>Sizning Cargo ID yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yangi ID: <b><code>{new_id}</code></b>"
+        "cargo_id_assigned": "✅ <b>Sizga Cargo ID biriktirildi!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Ushbu IDni yuklarni kuzatish uchun ishlating.",
+        "cargo_id_updated": "🔄 <b>Sizning Cargo ID yangilandi!</b>\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yangi ID: <b><code>{new_id}</code></b>"
     },
     "errors": {
         "not_found": "❌ Topilmadi",
