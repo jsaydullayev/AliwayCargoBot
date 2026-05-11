@@ -137,6 +137,8 @@
         "done": "✅ Excel dosyası hazır!",
         "file_name": "cargo_export_{date}.xlsx",
         "no_data": "📭 Aktarılacak veri yok",
+        "clients_button": "👥 Müşteri listesi",
+        "clients_done": "Müşteri Excel dosyası hazır ({count} müşteri)",
         "stats_button": "📊 İstatistik",
         "stats_title": "📊 <b>İstatistik</b>",
         "stats_my_section": "👤 <b>Faaliyetim</b>",

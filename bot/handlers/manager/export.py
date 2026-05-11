@@ -15,7 +15,7 @@ from aiogram.types import (
 
 from bot.keyboards.inline_kb import navigation_keyboard
 from bot.middlewares.i18n_middleware import I18nMiddleware
-from bot.utils.excel_export import generate_excel_file
+from bot.utils.excel_export import generate_excel_file, generate_clients_excel_file
 from bot.utils.notifications import STATUS_KEY_MAP
 from database.crud import client_crud, shipment_crud
 from database.database import get_session
@@ -38,6 +38,12 @@ def _export_filter_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMa
         CargoStatus.DELIVERED,
     ]
     rows = [
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "export.clients_button"),
+                callback_data="export:clients",
+            ),
+        ],
         [
             InlineKeyboardButton(
                 text=i18n.get_text(lang, "view_cargos.all_cargos"),
@@ -142,6 +148,53 @@ async def show_stats(
         text,
         reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
     )
+    await state.clear()
+    await callback.answer()
+
+
+@export_router.callback_query(F.data == "export:clients")
+async def export_clients(
+    callback: CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+) -> None:
+    """Mijozlar ro'yxatini Excel formatda eksport qilish"""
+    lang = i18n.get_user_language(callback.from_user.id)
+
+    await callback.message.edit_text(i18n.get_text(lang, "export.generating"))
+
+    try:
+        async with get_session() as session:
+            clients = await client_crud.get_all_for_export(session)
+
+        if not clients:
+            await callback.message.edit_text(
+                i18n.get_text(lang, "export.no_data"),
+                reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
+            )
+            await state.clear()
+            await callback.answer()
+            return
+
+        file = generate_clients_excel_file(clients)
+
+        await callback.message.answer_document(
+            document=file,
+            caption=f"✅ {i18n.get_text(lang, 'export.clients_done', count=len(clients))}",
+        )
+        await callback.message.edit_text(
+            f"✅ {i18n.get_text(lang, 'export.clients_done', count=len(clients))}",
+            reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
+        )
+        logger.info(f"Mijozlar eksport — Manager: {callback.from_user.id}, Rows: {len(clients)}")
+
+    except Exception as e:
+        logger.error(f"Mijozlar eksport xatosi: {e}", exc_info=True)
+        await callback.message.edit_text(
+            i18n.get_text(lang, "errors.unknown_error"),
+            reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
+        )
+
     await state.clear()
     await callback.answer()
 

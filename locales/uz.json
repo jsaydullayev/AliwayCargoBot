@@ -137,6 +137,8 @@
         "done": "✅ Excel fayl tayyor!",
         "file_name": "cargo_export_{date}.xlsx",
         "no_data": "📭 Eksport uchun ma'lumot yo'q",
+        "clients_button": "👥 Mijozlar ro'yxati",
+        "clients_done": "Mijozlar Excel fayli tayyor ({count} ta mijoz)",
         "stats_button": "📊 Statistika",
         "stats_title": "📊 <b>Statistika</b>",
         "stats_my_section": "👤 <b>Mening faoliyatim</b>",

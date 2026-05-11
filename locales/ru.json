@@ -137,6 +137,8 @@
         "done": "✅ Excel файл готов!",
         "file_name": "cargo_export_{date}.xlsx",
         "no_data": "📭 Нет данных для экспорта",
+        "clients_button": "👥 Список клиентов",
+        "clients_done": "Excel файл клиентов готов ({count} клиентов)",
         "stats_button": "📊 Статистика",
         "stats_title": "📊 <b>Статистика</b>",
         "stats_my_section": "👤 <b>Моя активность</b>",
