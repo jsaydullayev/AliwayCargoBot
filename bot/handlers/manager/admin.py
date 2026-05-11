@@ -50,6 +50,16 @@ def manager_main_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMark
                 callback_data="manager:export",
             ),
             InlineKeyboardButton(
+                text=i18n.get_text(lang, "manager_menu.buttons.groups"),
+                callback_data="manager:groups",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "manager_menu.buttons.stats"),
+                callback_data="manager:stats",
+            ),
+            InlineKeyboardButton(
                 text=i18n.get_text(lang, "buttons.change_language"),
                 callback_data="manager:change_lang",
             ),

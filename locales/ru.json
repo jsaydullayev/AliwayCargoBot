@@ -26,7 +26,9 @@
             "manage_cargo": "📦 Добавить груз",
             "update_status": "🔄 Обновить статус",
             "view_cargos": "🔍 Просмотреть грузы",
-            "export": "📥 Экспорт в Excel"
+            "export": "📥 Экспорт в Excel",
+            "groups": "🛍️ Группы",
+            "stats": "📊 Статистика"
         }
     },
     "client_menu": {
@@ -66,6 +68,8 @@
         "new_cargo_confirm": "⚠️ <b>Подтверждение</b>\n\nСтарый ID клиента: <b>{old_id}</b>\nЕсли создадим новый ID, старый не удалится, но основной ID клиента обновится.\n\nПродолжить?",
         "use_existing": "📋 Использовать существующий ID",
         "create_new": "➕ Создать новый ID",
+        "choose_action": "Что вы хотите сделать?",
+        "existing_used": "✅ <b>Существующий Cargo ID:</b> <code>{cargo_id}</code>\n\n📦 Используйте этот ID для добавления груза.",
         "cargo_created": "✅ Cargo ID создан: <b>{cargo_id}</b>",
         "cargo_updated": "✅ Cargo ID обновлён: <b>{old_id}</b> → <b>{new_id}</b>",
         "client_added": "✅ <b>Новый клиент добавлен!</b>\n\n📞 Телефон: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
@@ -96,7 +100,7 @@
             "invalid_number": "⚠️ Введите положительное число больше 0!",
             "invalid_cargo_id": "⚠️ Cargo ID должен быть 5-значным числом!"
         },
-        "preview": "📋 <b>Информация о грузе (проверка)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Клиент: <b>{client_name}</b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price} {currency}</b>\n📝 Заметки: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "preview": "📋 <b>Информация о грузе (проверка)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Клиент: <b>{client_name}</b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price}</b>\n📝 Заметки: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
         "confirm": "Сохранить информацию о грузе?",
         "saved": "✅ <b>Груз успешно сохранён!</b>",
         "cancelled": "❌ Отменено."
@@ -132,7 +136,19 @@
         "generating": "⏳ Генерация Excel файла...",
         "done": "✅ Excel файл готов!",
         "file_name": "cargo_export_{date}.xlsx",
-        "no_data": "📭 Нет данных для экспорта"
+        "no_data": "📭 Нет данных для экспорта",
+        "stats_button": "📊 Статистика",
+        "stats_title": "📊 <b>Статистика</b>",
+        "stats_my_section": "👤 <b>Моя активность</b>",
+        "stats_total_section": "🌐 <b>Общие показатели</b>",
+        "stats_my_clients": "🆕 Создано клиентов: <b>{count}</b>",
+        "stats_my_with_cargo": "🆔 С Cargo ID: <b>{count}</b>",
+        "stats_my_shipments": "📦 Привязано грузов: <b>{count}</b>",
+        "stats_total_clients": "👥 Всего клиентов: <b>{count}</b>",
+        "stats_with_cargo_id": "🆔 С Cargo ID: <b>{count}</b>",
+        "stats_clients_with_shipments": "📦 Клиентов с грузами: <b>{count}</b>",
+        "stats_total_shipments": "📋 Всего грузов: <b>{count}</b>",
+        "stats_by_status": "📌 <b>По статусам:</b>"
     },
     "my_cargo": {
         "title": "🆔 <b>Мой Cargo ID</b>",
@@ -148,14 +164,45 @@
         "request_cargo_id": "🔍 <b>Отследить груз</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 Введите ваш 5-значный Cargo ID:\n\nПример: <code>48392</code>",
         "cargo_not_found": "❌ Cargo ID не найден.\n\nПожалуйста, проверьте ID и попробуйте снова.",
         "no_access": "⛔ Этот Cargo ID не принадлежит вам.\n\nВы можете отслеживать только свой ID.",
-        "cargo_info": "📦 <b>Информация о грузе</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price} {currency}</b>\n📌 Статус: <b>{status}</b>\n📝 Заметки: <b>{notes}</b>\n📅 Создан: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "cargo_info": "📦 <b>Информация о грузе</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Груз: <b>{description}</b>\n⚖️ Вес: <b>{weight}</b>\n📦 Вес упаковки: <b>{cargo_weight}</b>\n💰 Цена: <b>{price}</b>\n📌 Статус: <b>{status}</b>\n📝 Заметки: <b>{notes}</b>\n📅 Создан: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
         "view_photo": "🖼️ Посмотреть фото"
     },
     "groups": {
         "title": "🛍️ <b>Наши группы</b>",
-        "subtitle": "Присоединяйтесь к торговым группам и узнавайте о выгодных предложениях 👇",
+        "subtitle": "Выберите категорию 👇",
         "no_groups": "📭 Пока нет групп.",
-        "join_group": "Нажмите кнопку ниже для присоединения:"
+        "join_group": "Нажмите кнопку ниже для присоединения:",
+        "category_title": "📂 <b>{name}</b>",
+        "category_subtitle": "Выберите одну из групп 👇",
+        "no_groups_in_category": "📭 В этой категории пока нет групп."
+    },
+    "groups_admin": {
+        "title": "🛍️ <b>Управление группами</b>",
+        "categories_section": "📂 <b>Категории:</b>",
+        "no_categories": "📭 Пока нет категорий.\n\nСначала добавьте категорию, затем привяжите к ней группы.",
+        "add_category_button": "➕ Новая категория",
+        "add_group_button": "➕ Новая группа",
+        "category_view_title": "📂 <b>{name}</b>",
+        "groups_in_category": "🛍️ <b>Группы:</b>",
+        "no_groups_in_category": "📭 В этой категории пока нет групп.",
+        "select_category_for_group": "📂 К какой категории относится новая группа?",
+        "category_input_emoji": "🎨 Отправьте эмодзи для категории (или пропустите):",
+        "category_input_name_uz": "🇺🇿 Введите название категории на <b>узбекском</b>:",
+        "category_input_name_ru": "🇷🇺 Введите название категории на <b>русском</b>:",
+        "category_input_name_tr": "🇹🇷 Введите название категории на <b>турецком</b>:",
+        "category_preview": "📂 <b>Новая категория:</b>\n━━━━━━━━━━━━━━━━━━━━\n{emoji} <b>Узбекское:</b> {name_uz}\n{emoji} <b>Русское:</b> {name_ru}\n{emoji} <b>Турецкое:</b> {name_tr}\n━━━━━━━━━━━━━━━━━━━━\n\nСохранить?",
+        "category_saved": "✅ Категория добавлена!\n\n<b>{name}</b>",
+        "input_emoji": "🎨 Отправьте эмодзи для группы (или пропустите):",
+        "input_name_uz": "🇺🇿 Введите название группы на <b>узбекском</b> (например: Premium, Economy):",
+        "input_name_ru": "🇷🇺 Введите название группы на <b>русском</b>:",
+        "input_name_tr": "🇹🇷 Введите название группы на <b>турецком</b>:",
+        "input_link": "🔗 Отправьте ссылку на Telegram-группу\n(например: <code>https://t.me/groupname</code> или <code>@groupname</code>)",
+        "invalid_emoji": "❌ Эмодзи должен быть не длиннее 10 символов.",
+        "invalid_name": "❌ Название не может быть пустым. Введите снова:",
+        "invalid_link": "❌ Неверная ссылка. Отправьте в формате <code>https://t.me/...</code> или <code>@username</code>:",
+        "preview": "📋 <b>Новая группа:</b>\n━━━━━━━━━━━━━━━━━━━━\n📂 <b>Категория:</b> {category_name}\n{emoji} <b>Узбекское:</b> {name_uz}\n{emoji} <b>Русское:</b> {name_ru}\n{emoji} <b>Турецкое:</b> {name_tr}\n🔗 <b>Ссылка:</b> {link}\n━━━━━━━━━━━━━━━━━━━━\n\nСохранить?",
+        "saved": "✅ Группа успешно добавлена!\n\n<b>{name}</b>",
+        "cancelled": "❌ Отменено"
     },
     "contacts": {
         "title": "📞 <b>Связаться с нами</b>",

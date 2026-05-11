@@ -10,16 +10,15 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.database import db
-from database.models import Group, CompanyInfo
-from database.crud import GroupCRUD, CompanyInfoCRUD
+from database.models import Group, GroupCategory, CompanyInfo
+from database.crud import GroupCategoryCRUD, CompanyInfoCRUD
 
 
-INITIAL_GROUPS = [
+INITIAL_CATEGORIES = [
     {
         "name_uz": "Erkaklar kiyimi",
         "name_ru": "Мужская одежда",
         "name_tr": "Erkek giyim",
-        "telegram_link": "https://t.me/mens_clothing",
         "emoji": "👔",
         "sort_order": 1,
     },
@@ -27,7 +26,6 @@ INITIAL_GROUPS = [
         "name_uz": "Ayollar kiyimi",
         "name_ru": "Женская одежда",
         "name_tr": "Kadın giyim",
-        "telegram_link": "https://t.me/womens_clothing",
         "emoji": "👗",
         "sort_order": 2,
     },
@@ -35,7 +33,6 @@ INITIAL_GROUPS = [
         "name_uz": "Bolalar kiyimi",
         "name_ru": "Детская одежда",
         "name_tr": "Çocuk giyim",
-        "telegram_link": "https://t.me/kids_clothing",
         "emoji": "🧒",
         "sort_order": 3,
     },
@@ -43,7 +40,6 @@ INITIAL_GROUPS = [
         "name_uz": "Oyoq kiyimlar",
         "name_ru": "Обувь",
         "name_tr": "Ayakkabılar",
-        "telegram_link": "https://t.me/footwear",
         "emoji": "👟",
         "sort_order": 4,
     },
@@ -61,21 +57,21 @@ INITIAL_COMPANY_INFO = {
 }
 
 
-async def seed_groups(session: AsyncSession) -> None:
-    """Guruhlarni bazaga qo'shish"""
-    print("📚 Guruhlarni qo'shmoqda...")
+async def seed_categories(session: AsyncSession) -> None:
+    """Kategoriyalarni bazaga qo'shish (idempotent)"""
+    print("📂 Kategoriyalarni qo'shmoqda...")
 
-    for group_data in INITIAL_GROUPS:
-        existing = await GroupCRUD.get_all_active(session)
-        existing_names = [g.name_uz for g in existing]
+    existing = await GroupCategoryCRUD.get_all(session)
+    existing_names = {c.name_uz for c in existing}
 
-        if group_data["name_uz"] not in existing_names:
-            await GroupCRUD.create(session, **group_data)
-            print(f"  ✅ {group_data['name_uz']}")
+    for cat_data in INITIAL_CATEGORIES:
+        if cat_data["name_uz"] not in existing_names:
+            await GroupCategoryCRUD.create(session, **cat_data)
+            print(f"  ✅ {cat_data['name_uz']}")
         else:
-            print(f"  ⏭️ {group_data['name_uz']} - allaqachon mavjud")
+            print(f"  ⏭️ {cat_data['name_uz']} - allaqachon mavjud")
 
-    print("✅ Guruhlar muvaffaqiyatli qo'shildi!\n")
+    print("✅ Kategoriyalar muvaffaqiyatli qo'shildi!\n")
 
 
 async def seed_company_info(session: AsyncSession) -> None:
@@ -101,7 +97,7 @@ async def main():
 
     async with db.async_session_maker() as session:
         try:
-            await seed_groups(session)
+            await seed_categories(session)
             await seed_company_info(session)
 
             await session.commit()

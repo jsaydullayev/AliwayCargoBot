@@ -403,6 +403,12 @@ async def cancel_shipment_cb(
 # ============== Preview ==============
 
 def _format_preview(data: dict, i18n: I18nMiddleware, lang: str) -> str:
+    # Price + currency birga shakllantirish — bo'sh valyutada trailing space bo'lmaydi
+    if data.get("price"):
+        price_display = f"{data['price']} {data.get('currency') or ''}".strip()
+    else:
+        price_display = "—"
+
     return i18n.get_text(
         lang,
         "manage_cargo.preview",
@@ -411,8 +417,7 @@ def _format_preview(data: dict, i18n: I18nMiddleware, lang: str) -> str:
         description=data.get("description", "—"),
         weight=f"{data['weight']} kg" if data.get("weight") else "—",
         cargo_weight=f"{data['cargo_weight']} kg" if data.get("cargo_weight") else "—",
-        price=data.get("price", "") if data.get("price") else "—",
-        currency=data.get("currency", "") if data.get("currency") else "",
+        price=price_display,
         notes=data.get("notes") or "—",
     )
 

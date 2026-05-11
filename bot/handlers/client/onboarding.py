@@ -44,7 +44,7 @@ def _contact_request_keyboard(i18n: I18nMiddleware, lang: str) -> ReplyKeyboardM
 
 
 def client_main_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMarkup:
-    """Client asosiy menyu klaviaturasi — 2 ustunli (TZ §6.1)"""
+    """Client asosiy menyu klaviaturasi (TZ §6.1)"""
     return InlineKeyboardMarkup(inline_keyboard=[
         [
             InlineKeyboardButton(
@@ -70,10 +70,6 @@ def client_main_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMarku
             InlineKeyboardButton(
                 text=i18n.get_text(lang, "client_menu.buttons.settings"),
                 callback_data="client:settings",
-            ),
-            InlineKeyboardButton(
-                text=i18n.get_text(lang, "client_menu.buttons.change_language"),
-                callback_data="client:change_lang",
             ),
         ],
     ])
