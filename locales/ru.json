@@ -27,7 +27,6 @@
             "update_status": "🔄 Обновить статус",
             "view_cargos": "🔍 Просмотреть грузы",
             "export": "📥 Экспорт в Excel",
-            "groups": "🛍️ Группы",
             "stats": "📊 Статистика"
         }
     },
@@ -177,34 +176,6 @@
         "category_title": "📂 <b>{name}</b>",
         "category_subtitle": "Выберите одну из групп 👇",
         "no_groups_in_category": "📭 В этой категории пока нет групп."
-    },
-    "groups_admin": {
-        "title": "🛍️ <b>Управление группами</b>",
-        "categories_section": "📂 <b>Категории:</b>",
-        "no_categories": "📭 Пока нет категорий.\n\nСначала добавьте категорию, затем привяжите к ней группы.",
-        "add_category_button": "➕ Новая категория",
-        "add_group_button": "➕ Новая группа",
-        "category_view_title": "📂 <b>{name}</b>",
-        "groups_in_category": "🛍️ <b>Группы:</b>",
-        "no_groups_in_category": "📭 В этой категории пока нет групп.",
-        "select_category_for_group": "📂 К какой категории относится новая группа?",
-        "category_input_emoji": "🎨 Отправьте эмодзи для категории (или пропустите):",
-        "category_input_name_uz": "🇺🇿 Введите название категории на <b>узбекском</b>:",
-        "category_input_name_ru": "🇷🇺 Введите название категории на <b>русском</b>:",
-        "category_input_name_tr": "🇹🇷 Введите название категории на <b>турецком</b>:",
-        "category_preview": "📂 <b>Новая категория:</b>\n━━━━━━━━━━━━━━━━━━━━\n{emoji} <b>Узбекское:</b> {name_uz}\n{emoji} <b>Русское:</b> {name_ru}\n{emoji} <b>Турецкое:</b> {name_tr}\n━━━━━━━━━━━━━━━━━━━━\n\nСохранить?",
-        "category_saved": "✅ Категория добавлена!\n\n<b>{name}</b>",
-        "input_emoji": "🎨 Отправьте эмодзи для группы (или пропустите):",
-        "input_name_uz": "🇺🇿 Введите название группы на <b>узбекском</b> (например: Premium, Economy):",
-        "input_name_ru": "🇷🇺 Введите название группы на <b>русском</b>:",
-        "input_name_tr": "🇹🇷 Введите название группы на <b>турецком</b>:",
-        "input_link": "🔗 Отправьте ссылку на Telegram-группу\n(например: <code>https://t.me/groupname</code> или <code>@groupname</code>)",
-        "invalid_emoji": "❌ Эмодзи должен быть не длиннее 10 символов.",
-        "invalid_name": "❌ Название не может быть пустым. Введите снова:",
-        "invalid_link": "❌ Неверная ссылка. Отправьте в формате <code>https://t.me/...</code> или <code>@username</code>:",
-        "preview": "📋 <b>Новая группа:</b>\n━━━━━━━━━━━━━━━━━━━━\n📂 <b>Категория:</b> {category_name}\n{emoji} <b>Узбекское:</b> {name_uz}\n{emoji} <b>Русское:</b> {name_ru}\n{emoji} <b>Турецкое:</b> {name_tr}\n🔗 <b>Ссылка:</b> {link}\n━━━━━━━━━━━━━━━━━━━━\n\nСохранить?",
-        "saved": "✅ Группа успешно добавлена!\n\n<b>{name}</b>",
-        "cancelled": "❌ Отменено"
     },
     "contacts": {
         "title": "📞 <b>Связаться с нами</b>",

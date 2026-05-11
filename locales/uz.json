@@ -27,7 +27,6 @@
             "update_status": "🔄 Status yangilash",
             "view_cargos": "🔍 Yuklarni ko'rish",
             "export": "📥 Excel eksport",
-            "groups": "🛍️ Guruhlar",
             "stats": "📊 Statistika"
         }
     },
@@ -177,34 +176,6 @@
         "category_title": "📂 <b>{name}</b>",
         "category_subtitle": "Quyidagi guruhlardan birini tanlang 👇",
         "no_groups_in_category": "📭 Bu kategoriyada hali guruh yo'q."
-    },
-    "groups_admin": {
-        "title": "🛍️ <b>Guruhlarni boshqarish</b>",
-        "categories_section": "📂 <b>Kategoriyalar:</b>",
-        "no_categories": "📭 Hozircha kategoriya yo'q.\n\nAvval kategoriya qo'shing, keyin guruhlarni unga biriktirasiz.",
-        "add_category_button": "➕ Yangi kategoriya",
-        "add_group_button": "➕ Yangi guruh",
-        "category_view_title": "📂 <b>{name}</b>",
-        "groups_in_category": "🛍️ <b>Guruhlar:</b>",
-        "no_groups_in_category": "📭 Bu kategoriyada hali guruh yo'q.",
-        "select_category_for_group": "📂 Yangi guruh qaysi kategoriyaga tegishli?",
-        "category_input_emoji": "🎨 Kategoriya uchun emoji yuboring (yoki o'tkazib yuboring):",
-        "category_input_name_uz": "🇺🇿 Kategoriya nomini <b>O'zbekcha</b> yozing:",
-        "category_input_name_ru": "🇷🇺 Kategoriya nomini <b>Ruscha</b> yozing:",
-        "category_input_name_tr": "🇹🇷 Kategoriya nomini <b>Turkcha</b> yozing:",
-        "category_preview": "📂 <b>Yangi kategoriya:</b>\n━━━━━━━━━━━━━━━━━━━━\n{emoji} <b>O'zbekcha:</b> {name_uz}\n{emoji} <b>Ruscha:</b> {name_ru}\n{emoji} <b>Turkcha:</b> {name_tr}\n━━━━━━━━━━━━━━━━━━━━\n\nSaqlaymizmi?",
-        "category_saved": "✅ Kategoriya qo'shildi!\n\n<b>{name}</b>",
-        "input_emoji": "🎨 Guruh uchun emoji yuboring (yoki o'tkazib yuboring):",
-        "input_name_uz": "🇺🇿 Guruh nomini <b>O'zbekcha</b> yozing (masalan: Premium, Economy):",
-        "input_name_ru": "🇷🇺 Guruh nomini <b>Ruscha</b> yozing:",
-        "input_name_tr": "🇹🇷 Guruh nomini <b>Turkcha</b> yozing:",
-        "input_link": "🔗 Telegram guruh havolasini yuboring\n(masalan: <code>https://t.me/groupname</code> yoki <code>@groupname</code>)",
-        "invalid_emoji": "❌ Emoji 10 belgidan ko'p bo'lmasligi kerak.",
-        "invalid_name": "❌ Nom bo'sh bo'lmasligi kerak. Qayta kiriting:",
-        "invalid_link": "❌ Noto'g'ri havola. <code>https://t.me/...</code> yoki <code>@username</code> formatida yuboring:",
-        "preview": "📋 <b>Yangi guruh:</b>\n━━━━━━━━━━━━━━━━━━━━\n📂 <b>Kategoriya:</b> {category_name}\n{emoji} <b>O'zbekcha:</b> {name_uz}\n{emoji} <b>Ruscha:</b> {name_ru}\n{emoji} <b>Turkcha:</b> {name_tr}\n🔗 <b>Havola:</b> {link}\n━━━━━━━━━━━━━━━━━━━━\n\nSaqlaymizmi?",
-        "saved": "✅ Guruh muvaffaqiyatli qo'shildi!\n\n<b>{name}</b>",
-        "cancelled": "❌ Bekor qilindi"
     },
     "contacts": {
         "title": "📞 <b>Biz bilan bog'lanish</b>",

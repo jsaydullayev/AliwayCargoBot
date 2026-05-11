@@ -27,7 +27,6 @@
             "update_status": "🔄 Durumu güncelle",
             "view_cargos": "🔍 Yükleri görüntüle",
             "export": "📥 Excel'e aktar",
-            "groups": "🛍️ Gruplar",
             "stats": "📊 İstatistik"
         }
     },
@@ -177,34 +176,6 @@
         "category_title": "📂 <b>{name}</b>",
         "category_subtitle": "Gruplardan birini seçin 👇",
         "no_groups_in_category": "📭 Bu kategoride henüz grup yok."
-    },
-    "groups_admin": {
-        "title": "🛍️ <b>Grup yönetimi</b>",
-        "categories_section": "📂 <b>Kategoriler:</b>",
-        "no_categories": "📭 Henüz kategori yok.\n\nÖnce kategori ekleyin, ardından grupları bağlayın.",
-        "add_category_button": "➕ Yeni kategori",
-        "add_group_button": "➕ Yeni grup",
-        "category_view_title": "📂 <b>{name}</b>",
-        "groups_in_category": "🛍️ <b>Gruplar:</b>",
-        "no_groups_in_category": "📭 Bu kategoride henüz grup yok.",
-        "select_category_for_group": "📂 Yeni grup hangi kategoriye ait?",
-        "category_input_emoji": "🎨 Kategori için emoji gönderin (veya atlayın):",
-        "category_input_name_uz": "🇺🇿 Kategori adını <b>Özbekçe</b> yazın:",
-        "category_input_name_ru": "🇷🇺 Kategori adını <b>Rusça</b> yazın:",
-        "category_input_name_tr": "🇹🇷 Kategori adını <b>Türkçe</b> yazın:",
-        "category_preview": "📂 <b>Yeni kategori:</b>\n━━━━━━━━━━━━━━━━━━━━\n{emoji} <b>Özbekçe:</b> {name_uz}\n{emoji} <b>Rusça:</b> {name_ru}\n{emoji} <b>Türkçe:</b> {name_tr}\n━━━━━━━━━━━━━━━━━━━━\n\nKaydedilsin mi?",
-        "category_saved": "✅ Kategori eklendi!\n\n<b>{name}</b>",
-        "input_emoji": "🎨 Grup için emoji gönderin (veya atlayın):",
-        "input_name_uz": "🇺🇿 Grup adını <b>Özbekçe</b> yazın (örneğin: Premium, Economy):",
-        "input_name_ru": "🇷🇺 Grup adını <b>Rusça</b> yazın:",
-        "input_name_tr": "🇹🇷 Grup adını <b>Türkçe</b> yazın:",
-        "input_link": "🔗 Telegram grup bağlantısını gönderin\n(örneğin: <code>https://t.me/groupname</code> veya <code>@groupname</code>)",
-        "invalid_emoji": "❌ Emoji 10 karakterden uzun olmamalı.",
-        "invalid_name": "❌ Ad boş olamaz. Tekrar girin:",
-        "invalid_link": "❌ Geçersiz bağlantı. <code>https://t.me/...</code> veya <code>@username</code> formatında gönderin:",
-        "preview": "📋 <b>Yeni grup:</b>\n━━━━━━━━━━━━━━━━━━━━\n📂 <b>Kategori:</b> {category_name}\n{emoji} <b>Özbekçe:</b> {name_uz}\n{emoji} <b>Rusça:</b> {name_ru}\n{emoji} <b>Türkçe:</b> {name_tr}\n🔗 <b>Bağlantı:</b> {link}\n━━━━━━━━━━━━━━━━━━━━\n\nKaydedilsin mi?",
-        "saved": "✅ Grup başarıyla eklendi!\n\n<b>{name}</b>",
-        "cancelled": "❌ İptal edildi"
     },
     "contacts": {
         "title": "📞 <b>Bize ulaşın</b>",
