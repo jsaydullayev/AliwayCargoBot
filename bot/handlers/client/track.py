@@ -1,6 +1,7 @@
 """
 Client: Yukni kuzatish handleri (TZ §6.4)
 Cargo ID + clientga tegishli bo'lishi shart
+Cargo ID
 """
 import logging
 
