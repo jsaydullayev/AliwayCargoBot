@@ -68,7 +68,7 @@ async def cargo_id_input(
         client = await client_crud.get_by_cargo_id(session, cargo_id)
 
         if not client:
-            await message.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"), reply_markup=back_kb)
+            await message.answer(i18n.get_text(lang, "my_cargo.no_shipments"), reply_markup=back_kb)
             await state.clear()
             return
 
