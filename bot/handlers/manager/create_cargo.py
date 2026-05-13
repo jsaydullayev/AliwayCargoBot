@@ -8,7 +8,12 @@ import re
 from aiogram import Bot, Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import (
+    Message,
+    CallbackQuery,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+)
 
 from bot.keyboards.inline_kb import yes_no_keyboard, navigation_keyboard
 from bot.middlewares.i18n_middleware import I18nMiddleware
@@ -24,8 +29,33 @@ create_cargo_router = Router()
 class CreateCargoStates(StatesGroup):
     """Cargo ID yaratish FSM state lari"""
     waiting_phone = State()
+    choosing_action = State()   # mavjud cargo_id egasi uchun: use / new / cancel
     confirming_update = State()
     confirming_new = State()
+
+
+def _existing_cargo_choice_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMarkup:
+    """TZ §5.2 HOLAT B — 3 ta tugma: mavjud / yangi / bekor"""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "create_cargo.use_existing"),
+                callback_data="create_cargo:use_existing",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "create_cargo.create_new"),
+                callback_data="create_cargo:create_new",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "buttons.cancel"),
+                callback_data="create_cargo:cancel",
+            ),
+        ],
+    ])
 
 
 def validate_phone_number(phone: str) -> tuple[bool, str]:
@@ -126,20 +156,15 @@ async def _handle_existing_client(
             f"<code>{client.cargo_id}</code>\n"
             f"📅 <b>{i18n.get_text(lang, 'create_cargo.client_info.created_at')}</b>: "
             f"{created_at_str}\n\n"
-            f"{i18n.get_text(lang, 'create_cargo.new_cargo_confirm', old_id=client.cargo_id)}"
+            f"{i18n.get_text(lang, 'create_cargo.choose_action')}"
         )
 
-        await state.set_state(CreateCargoStates.confirming_update)
+        await state.set_state(CreateCargoStates.choosing_action)
         await state.update_data(client_id=client.id, phone=phone, old_cargo_id=client.cargo_id)
 
         await message.answer(
             info_text,
-            reply_markup=yes_no_keyboard(
-                lang=lang,
-                i18n=i18n,
-                yes_callback="create_cargo:update_yes",
-                no_callback="create_cargo:cancel",
-            ),
+            reply_markup=_existing_cargo_choice_keyboard(i18n, lang),
         )
     else:
         info_text = (
@@ -189,6 +214,59 @@ async def _confirm_new_client(
             no_callback="create_cargo:cancel",
         ),
     )
+
+
+@create_cargo_router.callback_query(F.data == "create_cargo:use_existing")
+async def use_existing_id(
+    callback: CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+) -> None:
+    """Mavjud Cargo ID dan foydalanish — TZ §5.2 HOLAT B birinchi tugma"""
+    lang = i18n.get_user_language(callback.from_user.id)
+    data = await state.get_data()
+    old_cargo_id = data.get("old_cargo_id")
+
+    if not old_cargo_id:
+        await callback.answer(i18n.get_text(lang, "errors.session_expired"), show_alert=True)
+        await state.clear()
+        return
+
+    await callback.message.edit_text(
+        i18n.get_text(lang, "create_cargo.existing_used", cargo_id=old_cargo_id),
+        reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
+    )
+    await callback.answer()
+    await state.clear()
+
+
+@create_cargo_router.callback_query(F.data == "create_cargo:create_new")
+async def create_new_id_confirm(
+    callback: CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+) -> None:
+    """Yangi ID yaratishni tasdiqlash bosqichi — TZ §5.2 HOLAT B ikkinchi tugma"""
+    lang = i18n.get_user_language(callback.from_user.id)
+    data = await state.get_data()
+    old_cargo_id = data.get("old_cargo_id")
+
+    if not old_cargo_id:
+        await callback.answer(i18n.get_text(lang, "errors.session_expired"), show_alert=True)
+        await state.clear()
+        return
+
+    await state.set_state(CreateCargoStates.confirming_update)
+    await callback.message.edit_text(
+        i18n.get_text(lang, "create_cargo.new_cargo_confirm", old_id=old_cargo_id),
+        reply_markup=yes_no_keyboard(
+            lang=lang,
+            i18n=i18n,
+            yes_callback="create_cargo:update_yes",
+            no_callback="create_cargo:cancel",
+        ),
+    )
+    await callback.answer()
 
 
 @create_cargo_router.callback_query(F.data == "create_cargo:update_yes")

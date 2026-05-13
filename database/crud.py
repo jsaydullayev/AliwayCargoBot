@@ -8,7 +8,7 @@ from sqlalchemy import select, and_, or_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from .models import Client, Shipment, Group, CompanyInfo, CargoStatus
+from .models import Client, Shipment, Group, GroupCategory, CompanyInfo, CargoStatus
 
 
 class ClientCRUD:
@@ -124,21 +124,65 @@ class ClientCRUD:
         return list(result.scalars().all())
 
     @staticmethod
-    async def get_all_for_export(session: AsyncSession) -> List[tuple]:
-        """Excel eksport uchun barcha clientlarni olish"""
-        query = select(
-            Client.id,
-            Client.cargo_id,
-            Client.full_name,
-            Client.phone_number,
-            Client.telegram_id,
-            Client.language,
-            Client.created_at,
-            Client.created_by,
-        ).order_by(Client.created_at.desc())
+    async def count_all(
+        session: AsyncSession,
+        created_by: Optional[int] = None,
+    ) -> int:
+        """Mijozlar umumiy sonini hisoblash (created_by berilsa, faqat shu manager yaratganlari)"""
+        query = select(func.count(Client.id))
+        if created_by is not None:
+            query = query.where(Client.created_by == created_by)
+        result = await session.execute(query)
+        return result.scalar() or 0
+
+    @staticmethod
+    async def get_all_for_export(
+        session: AsyncSession,
+        with_cargo_id_only: bool = False,
+    ) -> List[tuple]:
+        """
+        Excel eksport uchun barcha mijozlarni yuklar soni bilan olish
+
+        Returns:
+            Tuple ro'yxati: (cargo_id, full_name, phone, telegram_id, language, created_at, shipments_count)
+        """
+        shipments_count_subq = (
+            select(Shipment.client_id, func.count(Shipment.id).label("ship_count"))
+            .group_by(Shipment.client_id)
+            .subquery()
+        )
+
+        query = (
+            select(
+                Client.cargo_id,
+                Client.full_name,
+                Client.phone_number,
+                Client.telegram_id,
+                Client.language,
+                Client.created_at,
+                func.coalesce(shipments_count_subq.c.ship_count, 0),
+            )
+            .outerjoin(shipments_count_subq, shipments_count_subq.c.client_id == Client.id)
+            .order_by(Client.created_at.desc())
+        )
+
+        if with_cargo_id_only:
+            query = query.where(Client.cargo_id.is_not(None))
 
         result = await session.execute(query)
         return list(result.all())
+
+    @staticmethod
+    async def count_with_cargo_id(
+        session: AsyncSession,
+        created_by: Optional[int] = None,
+    ) -> int:
+        """Cargo ID berilgan mijozlar sonini hisoblash"""
+        query = select(func.count(Client.id)).where(Client.cargo_id.is_not(None))
+        if created_by is not None:
+            query = query.where(Client.created_by == created_by)
+        result = await session.execute(query)
+        return result.scalar() or 0
 
     @staticmethod
     async def search(
@@ -433,15 +477,91 @@ class ShipmentCRUD:
     async def count_all(
         session: AsyncSession,
         status_filter: Optional[CargoStatus] = None,
+        created_by: Optional[int] = None,
     ) -> int:
         """Barcha yuklar sonini hisoblash"""
         query = select(func.count(Shipment.id)).join(Client)
 
         if status_filter:
             query = query.where(Shipment.status == status_filter)
+        if created_by is not None:
+            query = query.where(Shipment.created_by == created_by)
 
         result = await session.execute(query)
         return result.scalar() or 0
+
+    @staticmethod
+    async def count_distinct_clients(
+        session: AsyncSession,
+        created_by: Optional[int] = None,
+    ) -> int:
+        """Kamida 1 ta yuki bo'lgan mijozlar sonini hisoblash"""
+        query = select(func.count(func.distinct(Shipment.client_id)))
+        if created_by is not None:
+            query = query.where(Shipment.created_by == created_by)
+        result = await session.execute(query)
+        return result.scalar() or 0
+
+    @staticmethod
+    async def count_by_status_all(
+        session: AsyncSession,
+        created_by: Optional[int] = None,
+    ) -> dict:
+        """Har bir status bo'yicha yuklar sonini qaytaradi"""
+        query = select(Shipment.status, func.count(Shipment.id)).group_by(Shipment.status)
+        if created_by is not None:
+            query = query.where(Shipment.created_by == created_by)
+        result = await session.execute(query)
+        return {status: count for status, count in result.all()}
+
+
+class GroupCategoryCRUD:
+    """Guruh kategoriyalari CRUD"""
+
+    @staticmethod
+    async def get_all_active(session: AsyncSession) -> List[GroupCategory]:
+        """Faol kategoriyalarni olish"""
+        result = await session.execute(
+            select(GroupCategory)
+            .where(GroupCategory.is_active == True)
+            .order_by(GroupCategory.sort_order, GroupCategory.id)
+        )
+        return list(result.scalars().all())
+
+    @staticmethod
+    async def get_all(session: AsyncSession) -> List[GroupCategory]:
+        """Barcha kategoriyalarni olish (aktiv + deaktiv)"""
+        result = await session.execute(
+            select(GroupCategory).order_by(GroupCategory.sort_order, GroupCategory.id)
+        )
+        return list(result.scalars().all())
+
+    @staticmethod
+    async def get_by_id(session: AsyncSession, category_id: int) -> Optional[GroupCategory]:
+        result = await session.execute(
+            select(GroupCategory).where(GroupCategory.id == category_id)
+        )
+        return result.scalar_one_or_none()
+
+    @staticmethod
+    async def create(
+        session: AsyncSession,
+        name_uz: str,
+        name_ru: str,
+        name_tr: str,
+        emoji: str = "📂",
+        sort_order: int = 0,
+    ) -> GroupCategory:
+        category = GroupCategory(
+            name_uz=name_uz,
+            name_ru=name_ru,
+            name_tr=name_tr,
+            emoji=emoji,
+            sort_order=sort_order,
+        )
+        session.add(category)
+        await session.flush()
+        return category
 
 
 class GroupCRUD:
@@ -456,6 +576,41 @@ class GroupCRUD:
             .order_by(Group.sort_order, Group.id)
         )
         return list(result.scalars().all())
+
+    @staticmethod
+    async def get_all(session: AsyncSession) -> List[Group]:
+        """Barcha guruhlarni olish (aktiv va deaktiv)"""
+        result = await session.execute(
+            select(Group).order_by(Group.sort_order, Group.id)
+        )
+        return list(result.scalars().all())
+
+    @staticmethod
+    async def get_by_category(
+        session: AsyncSession,
+        category_id: int,
+        active_only: bool = True,
+    ) -> List[Group]:
+        """Kategoriya bo'yicha guruhlarni olish"""
+        query = select(Group).where(Group.category_id == category_id)
+        if active_only:
+            query = query.where(Group.is_active == True)
+        query = query.order_by(Group.sort_order, Group.id)
+        result = await session.execute(query)
+        return list(result.scalars().all())
+
+    @staticmethod
+    async def count_by_category(
+        session: AsyncSession,
+        category_id: int,
+        active_only: bool = True,
+    ) -> int:
+        """Kategoriyadagi guruhlar sonini hisoblash"""
+        query = select(func.count(Group.id)).where(Group.category_id == category_id)
+        if active_only:
+            query = query.where(Group.is_active == True)
+        result = await session.execute(query)
+        return result.scalar() or 0
 
     @staticmethod
     async def get_by_id(session: AsyncSession, group_id: int) -> Optional[Group]:
@@ -474,6 +629,7 @@ class GroupCRUD:
         telegram_link: str,
         emoji: str,
         sort_order: int = 0,
+        category_id: Optional[int] = None,
     ) -> Group:
         """Yangi guruh yaratish"""
         group = Group(
@@ -483,6 +639,7 @@ class GroupCRUD:
             telegram_link=telegram_link,
             emoji=emoji,
             sort_order=sort_order,
+            category_id=category_id,
         )
         session.add(group)
         await session.flush()
@@ -600,6 +757,7 @@ class CompanyInfoCRUD:
 client_crud = ClientCRUD()
 shipment_crud = ShipmentCRUD()
 group_crud = GroupCRUD()
+group_category_crud = GroupCategoryCRUD()
 company_info_crud = CompanyInfoCRUD()
 
 # Helper function for shipment display

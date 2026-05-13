@@ -26,7 +26,8 @@
             "manage_cargo": "📦 Yuk biriktirish",
             "update_status": "🔄 Status yangilash",
             "view_cargos": "🔍 Yuklarni ko'rish",
-            "export": "📥 Excel eksport"
+            "export": "📥 Excel eksport",
+            "stats": "📊 Statistika"
         }
     },
     "client_menu": {
@@ -66,6 +67,8 @@
         "new_cargo_confirm": "⚠️ <b>Tasdiqlash</b>\n\nMijozning eski IDsi: <b>{old_id}</b>\nYangi ID yaratilsa, eski ID o'chirilmaydi, lekin mijozning asosiy IDsi yangilanadi.\n\nDavom etasizmi?",
         "use_existing": "📋 Mavjud IDni ishlatish",
         "create_new": "➕ Yangi ID yaratish",
+        "choose_action": "Nima qilmoqchisiz?",
+        "existing_used": "✅ <b>Mavjud Cargo ID:</b> <code>{cargo_id}</code>\n\n📦 Yuk biriktirish uchun shu IDdan foydalaning.",
         "cargo_created": "✅ Cargo ID yaratildi: <b>{cargo_id}</b>",
         "cargo_updated": "✅ Cargo ID yangilandi: <b>{old_id}</b> → <b>{new_id}</b>",
         "client_added": "✅ <b>Yangi mijoz qo'shildi!</b>\n\n📞 Telefon: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
@@ -96,7 +99,7 @@
             "invalid_number": "⚠️ Faqat 0 dan katta musbat son kiriting!",
             "invalid_cargo_id": "⚠️ Cargo ID 5 xonali son bo'lishi kerak!"
         },
-        "preview": "📋 <b>Yuk ma'lumoti (tekshirish)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Mijoz: <b>{client_name}</b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price} {currency}</b>\n📝 Izoh: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "preview": "📋 <b>Yuk ma'lumoti (tekshirish)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Mijoz: <b>{client_name}</b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📝 Izoh: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
         "confirm": "Yuk ma'lumotlarini saqlash?",
         "saved": "✅ <b>Yuk muvaffaqiyatli saqlandi!</b>",
         "cancelled": "❌ Bekor qilindi."
@@ -133,10 +136,20 @@
         "done": "✅ Excel fayl tayyor!",
         "file_name": "cargo_export_{date}.xlsx",
         "no_data": "📭 Eksport uchun ma'lumot yo'q",
-        "export_cargos": "📦 Yuklarni eksport qilish",
-        "export_clients": "👤 Mijozlarni eksport qilish",
-        "clients_file_name": "clients_export_{date}.xlsx",
-        "no_clients": "📭 Mijozlar topilmadi"
+        "clients_button": "👥 Mijozlar ro'yxati",
+        "clients_done": "Mijozlar Excel fayli tayyor ({count} ta mijoz)",
+        "stats_button": "📊 Statistika",
+        "stats_title": "📊 <b>Statistika</b>",
+        "stats_my_section": "👤 <b>Mening faoliyatim</b>",
+        "stats_total_section": "🌐 <b>Umumiy ko'rsatkichlar</b>",
+        "stats_my_clients": "🆕 Yaratilgan mijozlar: <b>{count}</b>",
+        "stats_my_with_cargo": "🆔 Cargo ID berilgan: <b>{count}</b>",
+        "stats_my_shipments": "📦 Biriktirilgan yuklar: <b>{count}</b>",
+        "stats_total_clients": "👥 Jami mijozlar: <b>{count}</b>",
+        "stats_with_cargo_id": "🆔 Cargo ID egalari: <b>{count}</b>",
+        "stats_clients_with_shipments": "📦 Yuki bor mijozlar: <b>{count}</b>",
+        "stats_total_shipments": "📋 Jami yuklar: <b>{count}</b>",
+        "stats_by_status": "📌 <b>Status bo'yicha:</b>"
     },
     "my_cargo": {
         "title": "🆔 <b>Mening Cargo ID im</b>",
@@ -149,17 +162,20 @@
     },
     "track_cargo": {
         "title": "🔍 <b>Yukimni kuzatish</b>",
-        "request_cargo_id": "🔍 <b>Yukimni kuzatish</b>\n━━━━━━━━━━━━━━━━━━\n\n🆔 5 xonali Cargo ID raqamingizni kiriting:\n\nMisol: <code>48392</code>",
+        "request_cargo_id": "🔍 <b>Yukimni kuzatish</b>\n\n🆔 5 xonali Cargo ID raqamingizni kiriting:\n\nMisol: <code>48392</code>",
         "cargo_not_found": "❌ Cargo ID topilmadi.\n\nIltimos, IDni qayta tekshirib kiriting.",
         "no_access": "⛔ Bu Cargo ID siz bilan bog'liq emas.\n\nFaqat o'zingizning IDni kuzatishingiz mumkin.",
-        "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price} {currency}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>\n━━━━━━━━━━━━━━━━━━━━",
+        "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>",
         "view_photo": "🖼️ Rasmni ko'rish"
     },
     "groups": {
         "title": "🛍️ <b>Bizning guruhlar</b>",
-        "subtitle": "Quyidagi savdo guruhlariga qo'shiling va arzon narxlarda yangiliklardan xabardor bo'ling 👇",
+        "subtitle": "Kategoriyani tanlang 👇",
         "no_groups": "📭 Hozircha guruhlar yo'q.",
-        "join_group": "Guruhga qo'shilish uchun quyidagi tugmani bosing:"
+        "join_group": "Guruhga qo'shilish uchun quyidagi tugmani bosing:",
+        "category_title": "📂 <b>{name}</b>",
+        "category_subtitle": "Quyidagi guruhlardan birini tanlang 👇",
+        "no_groups_in_category": "📭 Bu kategoriyada hali guruh yo'q."
     },
     "contacts": {
         "title": "📞 <b>Biz bilan bog'lanish</b>",
@@ -186,7 +202,7 @@
         "changed": "✅ <b>Til muvaffaqiyatli o'zgartirildi!</b>"
     },
     "notification": {
-        "status_updated": "📦 <b>Yukingiz holati yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n🔄 Yangi holat: <b>{status}</b>\n\n💬 {message}",
+        "status_updated": "📦 <b>Yukingiz holati yangilandi!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n🔄 Yangi holat: <b>{status}</b>\n\n💬 {message}",
         "status_messages": {
             "pending": "Yukingiz kutilmoqda.",
             "in_transit": "Yukingiz yo'lda.",
@@ -194,8 +210,8 @@
             "ready": "Yukingizni olib ketishingiz mumkin.",
             "delivered": "Yukingiz topshirildi."
         },
-        "cargo_id_assigned": "✅ <b>Sizga Cargo ID biriktirildi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Ushbu IDni yuklarni kuzatish uchun ishlating.",
-        "cargo_id_updated": "🔄 <b>Sizning Cargo ID yangilandi!</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yangi ID: <b><code>{new_id}</code></b>"
+        "cargo_id_assigned": "✅ <b>Sizga Cargo ID biriktirildi!</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n\n💡 Ushbu IDni yuklarni kuzatish uchun ishlating.",
+        "cargo_id_updated": "🔄 <b>Sizning Cargo ID yangilandi!</b>\n\n🆔 Eski ID: <b>{old_id}</b>\n🆔 Yangi ID: <b><code>{new_id}</code></b>"
     },
     "errors": {
         "not_found": "❌ Topilmadi",

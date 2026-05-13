@@ -123,12 +123,19 @@ def generate_excel_file(shipments: List[Any]) -> BufferedInputFile:
     return BufferedInputFile(file=buffer.read(), filename=filename)
 
 
-def generate_client_excel_file(clients: List[Any]) -> BufferedInputFile:
+LANGUAGE_LABELS = {
+    "uz": "🇺🇿 O'zbek",
+    "ru": "🇷🇺 Русский",
+    "tr": "🇹🇷 Türkçe",
+}
+
+
+def generate_clients_excel_file(clients: List[Any]) -> BufferedInputFile:
     """
-    Mijozlar yozuvlaridan .xlsx fayl generatsiya qiladi.
+    Mijozlar ro'yxatidan .xlsx fayl generatsiya qiladi.
 
     Args:
-        clients: Mijozlar tuple ro'yxati
+        clients: tuple ro'yxati (cargo_id, full_name, phone, telegram_id, language, created_at, shipments_count)
 
     Returns:
         BufferedInputFile — aiogram'da `answer_document` ga uzatish uchun tayyor
@@ -138,20 +145,20 @@ def generate_client_excel_file(clients: List[Any]) -> BufferedInputFile:
 
     wb = Workbook()
     ws = wb.active
-    ws.title = "Clients Export"
+    ws.title = "Clients"
 
     headers = [
-        "ID",
+        "#",
         "Cargo ID",
         "Mijoz ismi",
-        "Telefon raqami",
-        "Telegram ID",
+        "Telefon",
+        "Telegram",
         "Til",
-        "Yaratilgan sana",
-        "Yaratgan (ID)",
+        "Yuklar soni",
+        "Ro'yxatdan o'tgan",
     ]
 
-    header_fill = PatternFill(start_color="70AD47", end_color="70AD47", fill_type="solid")
+    header_fill = PatternFill(start_color="2E7D32", end_color="2E7D32", fill_type="solid")
     header_font = Font(bold=True, color="FFFFFF", size=11)
     header_align = Alignment(horizontal="center", vertical="center")
     thin_border = Border(
@@ -168,32 +175,33 @@ def generate_client_excel_file(clients: List[Any]) -> BufferedInputFile:
         cell.alignment = header_align
         cell.border = thin_border
 
-    column_widths = [10, 15, 25, 20, 20, 10, 20, 15]
+    column_widths = [5, 12, 25, 18, 16, 14, 12, 20]
     for i, width in enumerate(column_widths, start=1):
         ws.column_dimensions[ws.cell(row=1, column=i).column_letter].width = width
 
     for row_idx, client in enumerate(clients, start=2):
-        # client is a tuple: (id, cargo_id, full_name, phone_number, telegram_id, language, created_at, created_by)
-        client_id, cargo_id, full_name, phone_number, telegram_id, language, created_at, created_by = tuple(client)
+        cargo_id, full_name, phone, telegram_id, language, created_at, ship_count = tuple(client)
 
+        lang_label = LANGUAGE_LABELS.get(language, language or "—")
+        telegram_str = str(telegram_id) if telegram_id else "—"
         created_str = created_at.strftime("%d.%m.%Y %H:%M") if created_at else ""
-        language_map = {"uz": "O'zbek", "ru": "Русский", "tr": "Türkçe"}
-        language_label = language_map.get(language, language) if language else ""
 
         row_values = [
-            client_id,
+            row_idx - 1,
             cargo_id or "—",
-            full_name or "—",
-            phone_number,
-            telegram_id or "—",
-            language_label,
+            full_name or "",
+            phone or "",
+            telegram_str,
+            lang_label,
+            int(ship_count or 0),
             created_str,
-            created_by,
         ]
 
         for col_num, value in enumerate(row_values, start=1):
             cell = ws.cell(row=row_idx, column=col_num, value=value)
             cell.border = thin_border
+            if col_num in (1, 7):  # # va yuklar soni — markazga
+                cell.alignment = Alignment(horizontal="center")
 
     ws.freeze_panes = "A2"
     ws.auto_filter.ref = ws.dimensions

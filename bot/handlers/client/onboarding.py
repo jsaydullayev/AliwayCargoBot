@@ -44,7 +44,7 @@ def _contact_request_keyboard(i18n: I18nMiddleware, lang: str) -> ReplyKeyboardM
 
 
 def client_main_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMarkup:
-    """Client asosiy menyu klaviaturasi — 2 ustunli (TZ §6.1)"""
+    """Client asosiy menyu klaviaturasi (TZ §6.1)"""
     return InlineKeyboardMarkup(inline_keyboard=[
         [
             InlineKeyboardButton(
@@ -71,10 +71,6 @@ def client_main_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMarku
                 text=i18n.get_text(lang, "client_menu.buttons.settings"),
                 callback_data="client:settings",
             ),
-            InlineKeyboardButton(
-                text=i18n.get_text(lang, "client_menu.buttons.change_language"),
-                callback_data="client:change_lang",
-            ),
         ],
     ])
 
@@ -100,12 +96,11 @@ async def show_main_menu(
         cn_phones = getattr(company_info, "phone_numbers_cn", []) or []
         if cn_address or cn_phones:
             china_label = i18n.get_text(lang, "contacts.china_office")
-            text += f"\n\n━━━━━━━━━━━━━━━━━━━━\n{china_label}"
+            text += f"\n\n{china_label}"
             if cn_address:
                 text += f"\n📍 {cn_address}"
             if cn_phones:
                 text += f"\n📱 {', '.join(cn_phones)}"
-            text += "\n━━━━━━━━━━━━━━━━━━━━"
 
     text += f"\n\n{footer}"
 
