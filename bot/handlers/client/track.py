@@ -65,20 +65,9 @@ async def cargo_id_input(
     back_kb = navigation_keyboard(lang=lang, i18n=i18n, back_callback="client:menu")
 
     async with get_session() as session:
-        # Foydalanuvchining o'z clientini topish (TZ §6.4 — faqat o'z yukini kuzatish)
-        client = await client_crud.get_by_telegram_id(session, message.from_user.id)
+        client = await client_crud.get_by_cargo_id(session, cargo_id)
 
         if not client:
-            await message.answer(i18n.get_text(lang, "errors.client_not_registered"), reply_markup=back_kb)
-            await state.clear()
-            return
-
-        if not client.cargo_id:
-            await message.answer(i18n.get_text(lang, "my_cargo.no_cargo_id"), reply_markup=back_kb)
-            await state.clear()
-            return
-
-        if client.cargo_id != cargo_id:
             await message.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"), reply_markup=back_kb)
             await state.clear()
             return
