@@ -132,7 +132,11 @@
         "generating": "⏳ Excel dosyası oluşturuluyor...",
         "done": "✅ Excel dosyası hazır!",
         "file_name": "cargo_export_{date}.xlsx",
-        "no_data": "📭 Aktarılacak veri yok"
+        "no_data": "📭 Aktarılacak veri yok",
+        "export_cargos": "📦 Yükleri aktar",
+        "export_clients": "👤 Müşterileri aktar",
+        "clients_file_name": "clients_export_{date}.xlsx",
+        "no_clients": "📭 Müşteri bulunamadı"
     },
     "my_cargo": {
         "title": "🆔 <b>Cargo ID'im</b>",

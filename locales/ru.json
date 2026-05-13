@@ -132,7 +132,11 @@
         "generating": "⏳ Генерация Excel файла...",
         "done": "✅ Excel файл готов!",
         "file_name": "cargo_export_{date}.xlsx",
-        "no_data": "📭 Нет данных для экспорта"
+        "no_data": "📭 Нет данных для экспорта",
+        "export_cargos": "📦 Экспорт грузов",
+        "export_clients": "👤 Экспорт клиентов",
+        "clients_file_name": "clients_export_{date}.xlsx",
+        "no_clients": "📭 Клиенты не найдены"
     },
     "my_cargo": {
         "title": "🆔 <b>Мой Cargo ID</b>",

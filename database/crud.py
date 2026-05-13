@@ -124,6 +124,23 @@ class ClientCRUD:
         return list(result.scalars().all())
 
     @staticmethod
+    async def get_all_for_export(session: AsyncSession) -> List[tuple]:
+        """Excel eksport uchun barcha clientlarni olish"""
+        query = select(
+            Client.id,
+            Client.cargo_id,
+            Client.full_name,
+            Client.phone_number,
+            Client.telegram_id,
+            Client.language,
+            Client.created_at,
+            Client.created_by,
+        ).order_by(Client.created_at.desc())
+
+        result = await session.execute(query)
+        return list(result.all())
+
+    @staticmethod
     async def search(
         session: AsyncSession,
         query: str,

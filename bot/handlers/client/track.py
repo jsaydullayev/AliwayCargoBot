@@ -80,7 +80,7 @@ async def cargo_id_input(
         latest = await shipment_crud.get_latest_by_cargo_id(session, cargo_id)
 
     if not latest:
-        await message.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"))
+        await message.answer(i18n.get_text(lang, "my_cargo.no_shipments"))
         await state.clear()
         return
 

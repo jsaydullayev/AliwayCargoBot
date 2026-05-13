@@ -132,7 +132,11 @@
         "generating": "⏳ Excel fayl generatsiya qilinmoqda...",
         "done": "✅ Excel fayl tayyor!",
         "file_name": "cargo_export_{date}.xlsx",
-        "no_data": "📭 Eksport uchun ma'lumot yo'q"
+        "no_data": "📭 Eksport uchun ma'lumot yo'q",
+        "export_cargos": "📦 Yuklarni eksport qilish",
+        "export_clients": "👤 Mijozlarni eksport qilish",
+        "clients_file_name": "clients_export_{date}.xlsx",
+        "no_clients": "📭 Mijozlar topilmadi"
     },
     "my_cargo": {
         "title": "🆔 <b>Mening Cargo ID im</b>",

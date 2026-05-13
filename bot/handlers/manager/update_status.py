@@ -12,7 +12,7 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from bot.keyboards.inline_kb import navigation_keyboard
 from bot.middlewares.i18n_middleware import I18nMiddleware
 from bot.utils.notifications import send_status_notification, STATUS_KEY_MAP
-from database.crud import shipment_crud
+from database.crud import client_crud, shipment_crud
 from database.database import get_session
 from database.models import CargoStatus
 
@@ -95,10 +95,15 @@ async def cargo_id_input(
         return
 
     async with get_session() as session:
+        client = await client_crud.get_by_cargo_id(session, cargo_id)
         latest = await shipment_crud.get_latest_by_cargo_id(session, cargo_id)
 
-    if not latest:
+    if not client:
         await message.answer(i18n.get_text(lang, "manage_cargo.cargo_not_found"))
+        return
+
+    if not latest:
+        await message.answer(i18n.get_text(lang, "view_cargos.no_cargos"))
         return
 
     client = latest.client
