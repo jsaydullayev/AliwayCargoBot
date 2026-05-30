@@ -27,11 +27,11 @@ create_cargo_router = Router()
 
 
 class CreateCargoStates(StatesGroup):
-    """Cargo ID yaratish FSM state lari"""
     waiting_phone = State()
-    choosing_action = State()   # mavjud cargo_id egasi uchun: use / new / cancel
+    choosing_action = State()
     confirming_update = State()
     confirming_new = State()
+    waiting_manual_id = State()
 
 
 def _existing_cargo_choice_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMarkup:
@@ -47,6 +47,30 @@ def _existing_cargo_choice_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKe
             InlineKeyboardButton(
                 text=i18n.get_text(lang, "create_cargo.create_new"),
                 callback_data="create_cargo:create_new",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "buttons.cancel"),
+                callback_data="create_cargo:cancel",
+            ),
+        ],
+    ])
+
+
+def _id_preview_keyboard(i18n: I18nMiddleware, lang: str) -> InlineKeyboardMarkup:
+    """Avtomatik ID preview — Tasdiqlash / Qo'lda kiritish / Bekor"""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "create_cargo.confirm_id_btn"),
+                callback_data="create_cargo:confirm_auto",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "create_cargo.manual_id_btn"),
+                callback_data="create_cargo:manual_input",
             ),
         ],
         [
@@ -269,29 +293,209 @@ async def create_new_id_confirm(
     await callback.answer()
 
 
-@create_cargo_router.callback_query(F.data == "create_cargo:update_yes")
+# ============== ID preview ko'rsatish (umumiy helper) ==============
+
+async def _show_generated_id_preview(
+    target: Message | CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+    lang: str,
+    phone: str,
+) -> None:
+    """Avtomatik yaratilgan ID ni preview ko'rsatish — 2 tugma bilan"""
+    async with get_session() as session:
+        new_cargo_id = await cargo_id_generator.generate_unique_id(session)
+
+    await state.update_data(generated_cargo_id=new_cargo_id)
+
+    text = i18n.get_text(
+        lang, "create_cargo.generated_id_preview",
+        cargo_id=new_cargo_id,
+        phone=phone,
+    )
+    keyboard = _id_preview_keyboard(i18n, lang)
+
+    if isinstance(target, CallbackQuery):
+        await target.message.edit_text(text, reply_markup=keyboard)
+        await target.answer()
+    else:
+        await target.answer(text, reply_markup=keyboard)
+
+
+@create_cargo_router.callback_query(
+    CreateCargoStates.confirming_update,
+    F.data == "create_cargo:update_yes",
+)
 async def update_existing_id(
+    callback: CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+) -> None:
+    """Mavjud clientga yangi Cargo ID — preview ko'rsatish"""
+    lang = i18n.get_user_language(callback.from_user.id)
+    data = await state.get_data()
+    phone = data.get("phone", "")
+
+    if not data.get("client_id"):
+        await callback.answer(i18n.get_text(lang, "errors.session_expired"), show_alert=True)
+        await state.clear()
+        return
+
+    await _show_generated_id_preview(callback, state, i18n, lang, phone)
+
+
+@create_cargo_router.callback_query(
+    CreateCargoStates.confirming_new,
+    F.data == "create_cargo:new_yes",
+)
+async def confirm_new_id(
+    callback: CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+) -> None:
+    """Yangi ID yaratish tasdiqlandi — preview ko'rsatish"""
+    lang = i18n.get_user_language(callback.from_user.id)
+    data = await state.get_data()
+    phone = data.get("phone", "")
+
+    if not phone:
+        await callback.answer(i18n.get_text(lang, "errors.session_expired"), show_alert=True)
+        await state.clear()
+        return
+
+    await _show_generated_id_preview(callback, state, i18n, lang, phone)
+
+
+# ============== Avtomatik ID tasdiqlash ==============
+
+@create_cargo_router.callback_query(F.data == "create_cargo:confirm_auto")
+async def save_auto_id(
     callback: CallbackQuery,
     state: FSMContext,
     i18n: I18nMiddleware,
     bot: Bot,
 ) -> None:
-    """Mavjud clientga yangi Cargo ID biriktirish"""
+    """Avtomatik yaratilgan ID ni saqlash"""
     lang = i18n.get_user_language(callback.from_user.id)
     data = await state.get_data()
     client_id = data.get("client_id")
     phone = data.get("phone", "")
-    old_cargo_id = data.get("old_cargo_id", "")
+    old_cargo_id = data.get("old_cargo_id")
+    new_cargo_id = data.get("generated_cargo_id")
 
-    if not client_id:
+    if not new_cargo_id:
         await callback.answer(i18n.get_text(lang, "errors.session_expired"), show_alert=True)
         await state.clear()
         return
 
+    result_text = await _persist_cargo_id(
+        state=state,
+        i18n=i18n,
+        bot=bot,
+        lang=lang,
+        client_id=client_id,
+        phone=phone,
+        new_cargo_id=new_cargo_id,
+        old_cargo_id=old_cargo_id,
+        manager_id=callback.from_user.id,
+    )
+    await callback.message.edit_text(
+        result_text,
+        reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
+    )
+    await callback.answer()
+
+
+# ============== Qo'lda ID kiritish ==============
+
+@create_cargo_router.callback_query(F.data == "create_cargo:manual_input")
+async def manual_id_prompt(
+    callback: CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+) -> None:
+    """Qo'lda ID kiritish — so'rash"""
+    lang = i18n.get_user_language(callback.from_user.id)
+    await state.set_state(CreateCargoStates.waiting_manual_id)
+    await callback.message.edit_text(
+        i18n.get_text(lang, "create_cargo.enter_manual_id"),
+        reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="create_cargo:cancel"),
+    )
+    await callback.answer()
+
+
+@create_cargo_router.message(CreateCargoStates.waiting_manual_id)
+async def process_manual_id(
+    message: Message,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+    bot: Bot,
+) -> None:
+    """Qo'lda kiritilgan ID ni tekshirish va saqlash"""
+    lang = i18n.get_user_language(message.from_user.id)
+    cargo_id_input = (message.text or "").strip()
+
+    if len(cargo_id_input) != 5 or not cargo_id_input.isdigit():
+        await message.answer(i18n.get_text(lang, "manage_cargo.errors.invalid_cargo_id"))
+        return
+
+    async with get_session() as session:
+        is_available = await cargo_id_generator.is_id_available(session, cargo_id_input)
+
+    if not is_available:
+        await message.answer(i18n.get_text(lang, "create_cargo.manual_id_taken"))
+        return
+
+    data = await state.get_data()
+    client_id = data.get("client_id")
+    phone = data.get("phone", "")
+    old_cargo_id = data.get("old_cargo_id")
+
+    result_text = await _persist_cargo_id(
+        state=state,
+        i18n=i18n,
+        bot=bot,
+        lang=lang,
+        client_id=client_id,
+        phone=phone,
+        new_cargo_id=cargo_id_input,
+        old_cargo_id=old_cargo_id,
+        manager_id=message.from_user.id,
+    )
+    await message.answer(
+        result_text,
+        reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
+    )
+
+
+# ============== Saqlash (umumiy) ==============
+
+async def _persist_cargo_id(
+    state: FSMContext,
+    i18n: I18nMiddleware,
+    bot: Bot,
+    lang: str,
+    client_id,
+    phone: str,
+    new_cargo_id: str,
+    old_cargo_id: str | None,
+    manager_id: int,
+) -> str:
+    """DB ga saqlash va natija matnini qaytarish."""
     notification_sent = False
     async with get_session() as session:
-        new_cargo_id = await cargo_id_generator.generate_unique_id(session)
-        client = await client_crud.update_cargo_id(session, client_id, new_cargo_id)
+        if client_id:
+            client = await client_crud.update_cargo_id(session, client_id, new_cargo_id)
+        else:
+            client = await client_crud.create(
+                session=session,
+                phone_number=phone,
+                cargo_id=new_cargo_id,
+                created_by=manager_id,
+                telegram_id=None,
+                full_name=None,
+                language=lang,
+            )
         await session.commit()
 
         if client and client.telegram_id:
@@ -303,83 +507,26 @@ async def update_existing_id(
                 old_cargo_id=old_cargo_id,
             )
 
-    result_text = (
-        f"{i18n.get_text(lang, 'create_cargo.cargo_updated', old_id=old_cargo_id, new_id=new_cargo_id)}\n\n"
-        f"👤 <b>{client.full_name or '—'}</b>\n"
-        f"📞 <b>{phone}</b>\n"
-    )
-    if notification_sent:
-        result_text += f"\n{i18n.get_text(lang, 'create_cargo.notification_sent')}"
+    if old_cargo_id:
+        result_text = i18n.get_text(
+            lang, "create_cargo.cargo_updated",
+            old_id=old_cargo_id, new_id=new_cargo_id,
+        )
+        result_text += f"\n\n📞 <b>{phone}</b>"
+    else:
+        result_text = i18n.get_text(
+            lang, "create_cargo.client_added",
+            phone=phone, cargo_id=new_cargo_id,
+        )
 
-    await callback.message.edit_text(
-        result_text,
-        reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
-    )
-    await callback.answer()
-    await state.clear()
-
-
-@create_cargo_router.callback_query(F.data == "create_cargo:new_yes")
-async def confirm_new_id(
-    callback: CallbackQuery,
-    state: FSMContext,
-    i18n: I18nMiddleware,
-    bot: Bot,
-) -> None:
-    """Yangi ID yaratish tasdiqlandi"""
-    lang = i18n.get_user_language(callback.from_user.id)
-    data = await state.get_data()
-    client_id = data.get("client_id")
-    phone = data.get("phone", "")
-
-    if not phone:
-        await callback.answer(i18n.get_text(lang, "errors.session_expired"), show_alert=True)
-        await state.clear()
-        return
-
-    notification_sent = False
-    async with get_session() as session:
-        new_cargo_id = await cargo_id_generator.generate_unique_id(session)
-
-        if client_id:
-            client = await client_crud.update_cargo_id(session, client_id, new_cargo_id)
-        else:
-            client = await client_crud.create(
-                session=session,
-                phone_number=phone,
-                cargo_id=new_cargo_id,
-                created_by=callback.from_user.id,
-                telegram_id=None,
-                full_name=None,
-                language=lang,
-            )
-
-        await session.commit()
-
-        if client and client.telegram_id:
-            notification_sent = await send_cargo_id_notification(
-                bot=bot,
-                client=client,
-                new_cargo_id=new_cargo_id,
-                i18n=i18n,
-            )
-
-    result_text = i18n.get_text(
-        lang,
-        "create_cargo.client_added",
-        phone=phone,
-        cargo_id=new_cargo_id,
-    )
     if notification_sent:
         result_text += f"\n\n{i18n.get_text(lang, 'create_cargo.notification_sent')}"
 
-    await callback.message.edit_text(
-        result_text,
-        reply_markup=navigation_keyboard(lang=lang, i18n=i18n, back_callback="manager:menu"),
-    )
-    await callback.answer()
     await state.clear()
+    return result_text
 
+
+# ============== Cancel ==============
 
 @create_cargo_router.callback_query(F.data == "create_cargo:cancel")
 async def cancel_create_cargo(

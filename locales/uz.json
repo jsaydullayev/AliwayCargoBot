@@ -73,7 +73,12 @@
         "cargo_updated": "✅ Cargo ID yangilandi: <b>{old_id}</b> → <b>{new_id}</b>",
         "client_added": "✅ <b>Yangi mijoz qo'shildi!</b>\n\n📞 Telefon: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
         "notification_sent": "💬 Mijozga xabar yuborildi.",
-        "confirm_client": "To'g'ri mijozmi?"
+        "confirm_client": "To'g'ri mijozmi?",
+        "generated_id_preview": "🆔 Yangi Cargo ID tayyor:\n\n<b><code>{cargo_id}</code></b>\n\n📞 Telefon: <b>{phone}</b>\n\nNima qilmoqchisiz?",
+        "confirm_id_btn": "✅ Tasdiqlash",
+        "manual_id_btn": "✏️ Qo'lda ID kiritish",
+        "enter_manual_id": "✏️ O'zingiz xohlagan 5 xonali Cargo ID kiriting:",
+        "manual_id_taken": "⚠️ Bu ID allaqachon band. Boshqa 5 xonali son kiriting:"
     },
     "manage_cargo": {
         "title": "📦 Yuk biriktirish",

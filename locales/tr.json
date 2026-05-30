@@ -73,7 +73,12 @@
         "cargo_updated": "✅ Cargo ID güncellendi: <b>{old_id}</b> → <b>{new_id}</b>",
         "client_added": "✅ <b>Yeni müşteri eklendi!</b>\n\n📞 Telefon: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
         "notification_sent": "💬 Müşteriye bildirim gönderildi.",
-        "confirm_client": "Doğru müşteri mi?"
+        "confirm_client": "Doğru müşteri mi?",
+        "generated_id_preview": "🆔 Yeni Cargo ID hazır:\n\n<b><code>{cargo_id}</code></b>\n\n📞 Telefon: <b>{phone}</b>\n\nNe yapmak istiyorsunuz?",
+        "confirm_id_btn": "✅ Onayla",
+        "manual_id_btn": "✏️ Manuel ID gir",
+        "enter_manual_id": "✏️ İstediğiniz 5 haneli Cargo ID'yi girin:",
+        "manual_id_taken": "⚠️ Bu ID zaten kullanımda. Başka bir 5 haneli sayı girin:"
     },
     "manage_cargo": {
         "title": "📦 Yük ekle",

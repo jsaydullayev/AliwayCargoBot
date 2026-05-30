@@ -73,7 +73,12 @@
         "cargo_updated": "✅ Cargo ID обновлён: <b>{old_id}</b> → <b>{new_id}</b>",
         "client_added": "✅ <b>Новый клиент добавлен!</b>\n\n📞 Телефон: <b>{phone}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>",
         "notification_sent": "💬 Клиенту отправлено уведомление.",
-        "confirm_client": "Это правильный клиент?"
+        "confirm_client": "Это правильный клиент?",
+        "generated_id_preview": "🆔 Новый Cargo ID готов:\n\n<b><code>{cargo_id}</code></b>\n\n📞 Телефон: <b>{phone}</b>\n\nЧто хотите сделать?",
+        "confirm_id_btn": "✅ Подтвердить",
+        "manual_id_btn": "✏️ Ввести ID вручную",
+        "enter_manual_id": "✏️ Введите желаемый 5-значный Cargo ID:",
+        "manual_id_taken": "⚠️ Этот ID уже занят. Введите другое 5-значное число:"
     },
     "manage_cargo": {
         "title": "📦 Добавить груз",
