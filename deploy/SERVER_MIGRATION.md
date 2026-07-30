@@ -198,3 +198,5 @@ Telegramda tekshiring:
 | `invalid command \restrict` | psql client eski — tozalangan faylda bu satrlar olib tashlangan |
 | `duplicate key value violates unique constraint "clients_pkey"` | sequence tiklanmagan → `SELECT setval('clients_id_seq', (SELECT max(id) FROM clients));` |
 | Telegram `409 Conflict: terminated by other getUpdates` | eski server'da bot hali ishlab turibdi |
+| `ValidationError: Extra inputs are not permitted (db_pool_size ...)` | `config.py` da bu maydonlar e'lon qilinmagan edi — kodni `git pull` qiling |
+| Bot `Unauthorized` / token ishlamayapti | `.env` da qiymat `<...>` burchak qavslari bilan yozilgan — namunadagi qavslarni olib tashlang |

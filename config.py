@@ -22,12 +22,19 @@ class Settings(BaseSettings):
     DB_USER: str = "cargo_user"
     DB_PASSWORD: str
 
+    # Database connection pool (database.py os.getenv orqali ham o'qiydi)
+    DB_POOL_SIZE: int = 5
+    DB_MAX_OVERFLOW: int = 15
+    DB_ECHO: bool = False
+
     # App
     LOG_LEVEL: str = "INFO"
 
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
+        # Docker compose qo'shimcha env bersa ham yiqilmaslik uchun
+        extra="ignore",
     )
 
     @property
