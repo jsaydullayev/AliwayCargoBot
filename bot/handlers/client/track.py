@@ -30,6 +30,86 @@ class TrackStates(StatesGroup):
     waiting_cargo_id = State()
 
 
+DESCRIPTION_PREVIEW_LEN = 25
+
+
+def _format_cargo_info(shipment, i18n: I18nMiddleware, lang: str) -> str:
+    """Bitta yuk haqidagi to'liq ma'lumot matni"""
+    client = shipment.client
+    status_text = i18n.get_text(lang, STATUS_KEY_MAP.get(shipment.status, ""))
+
+    # Price + currency birga shakllantirish — bo'sh valyutada trailing space bo'lmaydi
+    if shipment.price:
+        price_display = f"{shipment.price} {shipment.currency or ''}".strip()
+    else:
+        price_display = "—"
+
+    return i18n.get_text(
+        lang,
+        "track_cargo.cargo_info",
+        cargo_id=client.cargo_id if client else "—",
+        description=shipment.description or "—",
+        weight=f"{shipment.weight_kg} kg" if shipment.weight_kg else "—",
+        cargo_weight=f"{shipment.cargo_weight_kg} kg" if shipment.cargo_weight_kg else "—",
+        price=price_display,
+        status=status_text,
+        notes=shipment.notes or "—",
+        created_at=shipment.created_at.strftime("%d.%m.%Y %H:%M") if shipment.created_at else "—",
+    )
+
+
+def _cargo_info_keyboard(
+    i18n: I18nMiddleware,
+    lang: str,
+    shipment,
+    back_callback: str,
+) -> InlineKeyboardMarkup:
+    """Rasm ko'rish (bo'lsa) + orqaga tugmalari"""
+    buttons = []
+    if shipment.photo_file_id:
+        buttons.append([
+            InlineKeyboardButton(
+                text=i18n.get_text(lang, "track_cargo.view_photo"),
+                callback_data=f"track:photo:{shipment.id}",
+            ),
+        ])
+    buttons.append([
+        InlineKeyboardButton(
+            text=i18n.get_text(lang, "buttons.back"),
+            callback_data=back_callback,
+        ),
+    ])
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+
+def _shipment_picker_keyboard(
+    i18n: I18nMiddleware,
+    lang: str,
+    shipments: list,
+) -> InlineKeyboardMarkup:
+    """Bir Cargo IDga bir nechta yuk biriktirilgan bo'lsa — tanlash tugmalari"""
+    rows = []
+    for idx, ship in enumerate(shipments, start=1):
+        status_text = i18n.get_text(lang, STATUS_KEY_MAP.get(ship.status, ""))
+        description = ship.description or "—"
+        if len(description) > DESCRIPTION_PREVIEW_LEN:
+            description = f"{description[:DESCRIPTION_PREVIEW_LEN]}…"
+        rows.append([
+            InlineKeyboardButton(
+                text=f"{idx}. {description} — {status_text}",
+                callback_data=f"track:show:{ship.id}",
+            ),
+        ])
+
+    rows.append([
+        InlineKeyboardButton(
+            text=i18n.get_text(lang, "buttons.back"),
+            callback_data="client:menu",
+        ),
+    ])
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
 @track_router.callback_query(F.data == "client:track_cargo")
 async def track_cargo_start(
     callback: CallbackQuery,
@@ -66,57 +146,92 @@ async def cargo_id_input(
 
     async with get_session() as session:
         client = await client_crud.get_by_cargo_id(session, cargo_id)
+        shipments = await shipment_crud.get_by_cargo_id(session, cargo_id) if client else []
 
-        if not client:
-            await message.answer(i18n.get_text(lang, "my_cargo.no_shipments"), reply_markup=back_kb)
-            await state.clear()
-            return
-
-        latest = await shipment_crud.get_latest_by_cargo_id(session, cargo_id)
-
-    if not latest:
+    if not client or not shipments:
         await message.answer(i18n.get_text(lang, "my_cargo.no_shipments"), reply_markup=back_kb)
         await state.clear()
         return
 
-    status_text = i18n.get_text(lang, STATUS_KEY_MAP.get(latest.status, ""))
+    await state.clear()
 
-    # Price + currency birga shakllantirish — bo'sh valyutada trailing space bo'lmaydi
-    if latest.price:
-        price_display = f"{latest.price} {latest.currency or ''}".strip()
-    else:
-        price_display = "—"
+    # Yagona yuk bo'lsa — to'g'ridan batafsil ma'lumot
+    if len(shipments) == 1:
+        shipment = shipments[0]
+        await message.answer(
+            _format_cargo_info(shipment, i18n, lang),
+            reply_markup=_cargo_info_keyboard(i18n, lang, shipment, "client:menu"),
+        )
+        return
 
-    info_text = i18n.get_text(
-        lang,
-        "track_cargo.cargo_info",
-        cargo_id=client.cargo_id,
-        description=latest.description or "—",
-        weight=f"{latest.weight_kg} kg" if latest.weight_kg else "—",
-        cargo_weight=f"{latest.cargo_weight_kg} kg" if latest.cargo_weight_kg else "—",
-        price=price_display,
-        status=status_text,
-        notes=latest.notes or "—",
-        created_at=latest.created_at.strftime("%d.%m.%Y %H:%M") if latest.created_at else "—",
+    await message.answer(
+        i18n.get_text(
+            lang,
+            "track_cargo.select_shipment",
+            cargo_id=cargo_id,
+            count=len(shipments),
+        ),
+        reply_markup=_shipment_picker_keyboard(i18n, lang, shipments),
     )
 
-    buttons = []
-    if latest.photo_file_id:
-        buttons.append([
-            InlineKeyboardButton(
-                text=i18n.get_text(lang, "track_cargo.view_photo"),
-                callback_data=f"track:photo:{latest.id}",
-            ),
-        ])
-    buttons.append([
-        InlineKeyboardButton(
-            text=i18n.get_text(lang, "buttons.back"),
-            callback_data="client:menu",
-        ),
-    ])
 
-    await message.answer(info_text, reply_markup=InlineKeyboardMarkup(inline_keyboard=buttons))
-    await state.clear()
+@track_router.callback_query(F.data.startswith("track:show:"))
+async def show_shipment(
+    callback: CallbackQuery,
+    i18n: I18nMiddleware,
+) -> None:
+    """Ro'yxatdan tanlangan yukning batafsil ma'lumoti"""
+    lang = i18n.get_user_language(callback.from_user.id)
+
+    try:
+        shipment_id = int(callback.data.split(":")[2])
+    except (ValueError, IndexError):
+        await callback.answer("⚠️", show_alert=True)
+        return
+
+    async with get_session() as session:
+        shipment = await shipment_crud.get_by_id(session, shipment_id)
+
+    if not shipment:
+        await callback.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"), show_alert=True)
+        return
+
+    cargo_id = shipment.client.cargo_id if shipment.client else None
+    back_callback = f"track:list:{cargo_id}" if cargo_id else "client:menu"
+
+    await callback.message.edit_text(
+        _format_cargo_info(shipment, i18n, lang),
+        reply_markup=_cargo_info_keyboard(i18n, lang, shipment, back_callback),
+    )
+    await callback.answer()
+
+
+@track_router.callback_query(F.data.startswith("track:list:"))
+async def show_shipment_list(
+    callback: CallbackQuery,
+    i18n: I18nMiddleware,
+) -> None:
+    """Yuklar ro'yxatiga qaytish"""
+    lang = i18n.get_user_language(callback.from_user.id)
+    cargo_id = callback.data.split(":", 2)[2]
+
+    async with get_session() as session:
+        shipments = await shipment_crud.get_by_cargo_id(session, cargo_id)
+
+    if not shipments:
+        await callback.answer(i18n.get_text(lang, "track_cargo.cargo_not_found"), show_alert=True)
+        return
+
+    await callback.message.edit_text(
+        i18n.get_text(
+            lang,
+            "track_cargo.select_shipment",
+            cargo_id=cargo_id,
+            count=len(shipments),
+        ),
+        reply_markup=_shipment_picker_keyboard(i18n, lang, shipments),
+    )
+    await callback.answer()
 
 
 @track_router.callback_query(F.data.startswith("track:photo:"))

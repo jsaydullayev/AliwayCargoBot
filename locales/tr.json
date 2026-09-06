@@ -107,6 +107,7 @@
         "preview": "📋 <b>Yük bilgisi (kontrol)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Müşteri: <b>{client_name}</b>\n📋 Yük: <b>{description}</b>\n⚖️ Ağırlık: <b>{weight}</b>\n📦 Paket ağırlığı: <b>{cargo_weight}</b>\n💰 Fiyat: <b>{price}</b>\n📝 Notlar: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
         "confirm": "Yük bilgilerini kaydetmek istiyor musunuz?",
         "saved": "✅ <b>Yük başarıyla kaydedildi!</b>",
+        "existing_shipments": "📦 Bu müşteride zaten <b>{count}</b> yük var — yenisi ayrı bir yük olarak eklenecek.",
         "cancelled": "❌ İptal edildi."
     },
     "update_status": {
@@ -117,6 +118,7 @@
         "select_new_status": "Yeni durumu seçin:",
         "updated": "✅ Durum güncellendi: <b>{status}</b>",
         "same_status": "⚠️ Bu durum zaten seçili",
+        "select_shipment": "📦 <b>{name}</b> — Cargo ID: <b><code>{cargo_id}</code></b>\n\nBu ID'ye <b>{count}</b> yük bağlı.\nDurumunu değiştirmek istediğiniz yükü seçin:",
         "shipment_info": "📦 <b>Yük bilgisi</b>\n━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>{name}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n📌 Şu anki durum: <b>{status}</b>\n━━━━━━━━━━━━━━━━━━━━"
     },
     "view_cargos": {
@@ -171,6 +173,7 @@
         "cargo_not_found": "❌ Cargo ID bulunamadı.\n\nLütfen ID'yi kontrol edip tekrar deneyin.",
         "no_access": "⛔ Bu Cargo ID size ait değil.\n\nYalnızca kendi ID'nizi takip edebilirsiniz.",
         "cargo_info": "📦 <b>Yük bilgisi</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yük: <b>{description}</b>\n⚖️ Ağırlık: <b>{weight}</b>\n📦 Paket ağırlığı: <b>{cargo_weight}</b>\n💰 Fiyat: <b>{price}</b>\n📌 Durum: <b>{status}</b>\n📝 Notlar: <b>{notes}</b>\n📅 Oluşturuldu: <b>{created_at}</b>",
+        "select_shipment": "📦 Cargo ID <b><code>{cargo_id}</code></b> için <b>{count}</b> yük bulundu.\n\nDetaylar için yükü seçin:",
         "view_photo": "🖼️ Fotoğrafı görüntüle"
     },
     "groups": {

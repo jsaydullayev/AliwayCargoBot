@@ -23,7 +23,11 @@ update_status_router = Router()
 class UpdateStatusStates(StatesGroup):
     """Status yangilash FSM"""
     waiting_cargo_id = State()
+    selecting_shipment = State()
     selecting_status = State()
+
+
+DESCRIPTION_PREVIEW_LEN = 25
 
 
 def _status_keyboard(i18n: I18nMiddleware, lang: str, current: CargoStatus) -> InlineKeyboardMarkup:
@@ -62,6 +66,71 @@ def _status_keyboard(i18n: I18nMiddleware, lang: str, current: CargoStatus) -> I
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
+def _shipment_picker_keyboard(
+    i18n: I18nMiddleware,
+    lang: str,
+    shipments: list,
+) -> InlineKeyboardMarkup:
+    """Bir Cargo IDga bir nechta yuk biriktirilgan bo'lsa — tanlash tugmalari"""
+    rows = []
+    for idx, ship in enumerate(shipments, start=1):
+        status_text = i18n.get_text(lang, STATUS_KEY_MAP.get(ship.status, ""))
+        description = ship.description or "—"
+        if len(description) > DESCRIPTION_PREVIEW_LEN:
+            description = f"{description[:DESCRIPTION_PREVIEW_LEN]}…"
+        rows.append([
+            InlineKeyboardButton(
+                text=f"{idx}. {description} — {status_text}",
+                callback_data=f"us:pick:{ship.id}",
+            ),
+        ])
+
+    rows.append([
+        InlineKeyboardButton(
+            text=i18n.get_text(lang, "buttons.back"),
+            callback_data="manager:menu",
+        ),
+    ])
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
+async def _show_status_selector(
+    target: Message | CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+    lang: str,
+    shipment,
+) -> None:
+    """Tanlangan yuk uchun joriy status + yangi status tugmalarini ko'rsatish"""
+    client = shipment.client
+    current_status_text = i18n.get_text(lang, STATUS_KEY_MAP.get(shipment.status, ""))
+
+    info_text = i18n.get_text(
+        lang,
+        "update_status.shipment_info",
+        name=(client.full_name if client else None) or "—",
+        cargo_id=(client.cargo_id if client else None) or "—",
+        description=shipment.description or "—",
+        status=current_status_text,
+    )
+
+    await state.update_data(
+        shipment_id=shipment.id,
+        cargo_id=client.cargo_id if client else None,
+        current_status=shipment.status.value,
+    )
+    await state.set_state(UpdateStatusStates.selecting_status)
+
+    text = f"{info_text}\n\n{i18n.get_text(lang, 'update_status.select_new_status')}"
+    keyboard = _status_keyboard(i18n, lang, shipment.status)
+
+    if isinstance(target, CallbackQuery):
+        await target.message.edit_text(text, reply_markup=keyboard)
+        await target.answer()
+    else:
+        await target.answer(text, reply_markup=keyboard)
+
+
 @update_status_router.callback_query(F.data == "manager:update_status")
 async def update_status_start(
     callback: CallbackQuery,
@@ -96,39 +165,65 @@ async def cargo_id_input(
 
     async with get_session() as session:
         client = await client_crud.get_by_cargo_id(session, cargo_id)
-        latest = await shipment_crud.get_latest_by_cargo_id(session, cargo_id)
+        shipments = await shipment_crud.get_by_cargo_id(session, cargo_id)
 
     if not client:
         await message.answer(i18n.get_text(lang, "manage_cargo.cargo_not_found"))
         return
 
-    if not latest:
+    if not shipments:
         await message.answer(i18n.get_text(lang, "view_cargos.no_cargos"))
         return
 
-    client = latest.client
-    current_status_text = i18n.get_text(lang, STATUS_KEY_MAP.get(latest.status, ""))
+    # Yagona yuk bo'lsa — to'g'ridan status tanlashga o'tamiz
+    if len(shipments) == 1:
+        await _show_status_selector(message, state, i18n, lang, shipments[0])
+        return
 
-    info_text = i18n.get_text(
-        lang,
-        "update_status.shipment_info",
-        name=client.full_name or "—",
-        cargo_id=client.cargo_id,
-        description=latest.description or "—",
-        status=current_status_text,
-    )
-
-    await state.update_data(
-        shipment_id=latest.id,
-        cargo_id=cargo_id,
-        current_status=latest.status.value,
-    )
-    await state.set_state(UpdateStatusStates.selecting_status)
+    await state.update_data(cargo_id=cargo_id)
+    await state.set_state(UpdateStatusStates.selecting_shipment)
 
     await message.answer(
-        f"{info_text}\n\n{i18n.get_text(lang, 'update_status.select_new_status')}",
-        reply_markup=_status_keyboard(i18n, lang, latest.status),
+        i18n.get_text(
+            lang,
+            "update_status.select_shipment",
+            name=client.full_name or "—",
+            cargo_id=cargo_id,
+            count=len(shipments),
+        ),
+        reply_markup=_shipment_picker_keyboard(i18n, lang, shipments),
     )
+
+
+@update_status_router.callback_query(
+    UpdateStatusStates.selecting_shipment,
+    F.data.startswith("us:pick:"),
+)
+async def shipment_selected(
+    callback: CallbackQuery,
+    state: FSMContext,
+    i18n: I18nMiddleware,
+) -> None:
+    """Ro'yxatdan yuk tanlandi — status tugmalarini ko'rsatish"""
+    lang = i18n.get_user_language(callback.from_user.id)
+
+    try:
+        shipment_id = int(callback.data.split(":")[2])
+    except (ValueError, IndexError):
+        await callback.answer("⚠️", show_alert=True)
+        return
+
+    async with get_session() as session:
+        shipment = await shipment_crud.get_by_id(session, shipment_id)
+
+    if not shipment:
+        await callback.answer(
+            i18n.get_text(lang, "manage_cargo.cargo_not_found"),
+            show_alert=True,
+        )
+        return
+
+    await _show_status_selector(callback, state, i18n, lang, shipment)
 
 
 @update_status_router.callback_query(

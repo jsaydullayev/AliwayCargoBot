@@ -40,87 +40,26 @@ INITIAL_CATEGORIES = [
 ]
 
 
-# Har bir kategoriya uchun guruhlar (kategoriya `name_uz` bilan bog'lanadi)
-INITIAL_GROUPS = {
-    "Erkaklar": [
-        {
-            "name_uz": "Premium kiyimlar",
-            "name_ru": "Премиум одежда",
-            "name_tr": "Premium giyim",
-            "emoji": "👔",
-            "telegram_link": "https://t.me/aliwayerkakpremium",
-            "sort_order": 1,
-        },
-        {
-            "name_uz": "Economy kiyimlar",
-            "name_ru": "Эконом одежда",
-            "name_tr": "Economy giyim",
-            "emoji": "🛒",
-            "telegram_link": "https://t.me/bazarchimenwear",
-            "sort_order": 2,
-        },
-        {
-            "name_uz": "Oyoq kiyimlar",
-            "name_ru": "Обувь",
-            "name_tr": "Ayakkabılar",
-            "emoji": "👞",
-            "telegram_link": "https://t.me/bazarchimensshoes",
-            "sort_order": 3,
-        },
-    ],
-    "Ayollar": [
-        {
-            "name_uz": "Premium kiyimlar",
-            "name_ru": "Премиум одежда",
-            "name_tr": "Premium giyim",
-            "emoji": "👗",
-            "telegram_link": "https://t.me/bazarchiwomenwear",
-            "sort_order": 1,
-        },
-        {
-            "name_uz": "Economy kiyimlar",
-            "name_ru": "Эконом одежда",
-            "name_tr": "Economy giyim",
-            "emoji": "🛍️",
-            "telegram_link": "https://t.me/aliwaywomen",
-            "sort_order": 2,
-        },
-        {
-            "name_uz": "Oyoq kiyimlar",
-            "name_ru": "Обувь",
-            "name_tr": "Ayakkabılar",
-            "emoji": "👠",
-            "telegram_link": "https://t.me/ayollarshoes",
-            "sort_order": 3,
-        },
-        {
-            "name_uz": "Uy kiyimlari (Pijama)",
-            "name_ru": "Домашняя одежда (пижама)",
-            "name_tr": "Ev giyimi (Pijama)",
-            "emoji": "🌙",
-            "telegram_link": "https://t.me/aliwayichkikiyimlar",
-            "sort_order": 4,
-        },
-    ],
-    "Bolalar": [
-        {
-            "name_uz": "Bolalar kiyimlari",
-            "name_ru": "Детская одежда",
-            "name_tr": "Çocuk giyimi",
-            "emoji": "🧒",
-            "telegram_link": "https://t.me/bazarchikidswear",
-            "sort_order": 1,
-        },
-        {
-            "name_uz": "Bolalar oyoq kiyimlari",
-            "name_ru": "Детская обувь",
-            "name_tr": "Çocuk ayakkabıları",
-            "emoji": "👟",
-            "telegram_link": "https://t.me/aliwaykidsshoes",
-            "sort_order": 2,
-        },
-    ],
-}
+# Guruhlar — kategoriyasiz (category_id=None), ya'ni "Bizning guruhlar" da
+# to'g'ridan-to'g'ri link tugmalari sifatida chiqadi.
+INITIAL_GROUPS = [
+    {
+        "name_uz": "Asosiy gruppa",
+        "name_ru": "Основная группа",
+        "name_tr": "Ana grup",
+        "emoji": "📢",
+        "telegram_link": "https://t.me/KARAVANWA",
+        "sort_order": 1,
+    },
+    {
+        "name_uz": "Ayollar kiyimlari",
+        "name_ru": "Женская одежда",
+        "name_tr": "Kadın giyim",
+        "emoji": "👗",
+        "telegram_link": "https://t.me/Karavanwomen",
+        "sort_order": 2,
+    },
+]
 
 
 INITIAL_COMPANY_INFO = {
@@ -129,7 +68,7 @@ INITIAL_COMPANY_INFO = {
     "address_tr": "",
     "address_cn": "广州市荔湾区站前路90号广州加和城A1024铺",
     "phone_numbers": [],
-    "phone_numbers_cn": ["187 1888 8827"],
+    "phone_numbers_cn": ["198 7464 8705"],
     "telegram_account": "yoldashali_guanjou",
     "working_hours": "",
 }
@@ -154,25 +93,19 @@ async def seed_categories(session: AsyncSession) -> dict:
     return name_to_cat
 
 
-async def seed_groups(session: AsyncSession, categories: dict) -> None:
-    """Har bir kategoriya uchun guruhlarni qo'shish (idempotent — telegram_link bo'yicha tekshiriladi)."""
+async def seed_groups(session: AsyncSession) -> None:
+    """Guruhlarni qo'shish (idempotent — telegram_link bo'yicha tekshiriladi)."""
     print("🛍️ Guruhlarni qo'shmoqda...")
 
     existing = await GroupCRUD.get_all(session)
     existing_links = {g.telegram_link for g in existing}
 
-    for cat_name, groups in INITIAL_GROUPS.items():
-        category = categories.get(cat_name)
-        if not category:
-            print(f"  ⚠️ Kategoriya '{cat_name}' topilmadi — guruhlar o'tkazib yuborildi")
+    for grp in INITIAL_GROUPS:
+        if grp["telegram_link"] in existing_links:
+            print(f"  ⏭️ {grp['name_uz']} (link mavjud)")
             continue
-
-        for grp in groups:
-            if grp["telegram_link"] in existing_links:
-                print(f"  ⏭️ {cat_name} → {grp['name_uz']} (link mavjud)")
-                continue
-            await GroupCRUD.create(session=session, category_id=category.id, **grp)
-            print(f"  ✅ {cat_name} → {grp['emoji']} {grp['name_uz']}")
+        await GroupCRUD.create(session=session, category_id=None, **grp)
+        print(f"  ✅ {grp['emoji']} {grp['name_uz']}")
 
     print("✅ Guruhlar tayyor!\n")
 
@@ -199,8 +132,8 @@ async def main():
 
     async with db.async_session_maker() as session:
         try:
-            categories = await seed_categories(session)
-            await seed_groups(session, categories)
+            await seed_categories(session)
+            await seed_groups(session)
             await seed_company_info(session)
 
             await session.commit()
