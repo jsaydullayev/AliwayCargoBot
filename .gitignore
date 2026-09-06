@@ -63,3 +63,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+# Claude Code worktree nusxalari (repoga kirmasligi kerak)
+.claude/worktrees/
