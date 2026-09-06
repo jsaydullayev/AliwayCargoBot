@@ -16,7 +16,7 @@ COMPANY_INFO = {
     "address_tr": "",
     "address_cn": "广州市荔湾区站前路90号广州加和城A1024铺",
     "phone_numbers": [],
-    "phone_numbers_cn": ["187 1888 8827"],
+    "phone_numbers_cn": ["198 7464 8705"],
     "telegram_account": "yoldashali_guanjou",
     "working_hours": "",
 }

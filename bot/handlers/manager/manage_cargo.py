@@ -113,6 +113,9 @@ async def cargo_id_input(
 
     async with get_session() as session:
         client = await client_crud.get_by_cargo_id(session, cargo_id)
+        existing_count = (
+            await shipment_crud.count_by_client(session, client.id) if client else 0
+        )
 
     if not client:
         await message.answer(i18n.get_text(lang, "manage_cargo.cargo_not_found"))
@@ -132,6 +135,12 @@ async def cargo_id_input(
         phone=client.phone_number,
         cargo_id=cargo_id,
     )
+
+    # Bir Cargo IDga bir nechta yuk biriktirilishi mumkin — mavjudlari haqida eslatma
+    if existing_count:
+        info_text += (
+            f"\n\n{i18n.get_text(lang, 'manage_cargo.existing_shipments', count=existing_count)}"
+        )
 
     await message.answer(info_text)
     await _ask_description(message, state, i18n, lang)

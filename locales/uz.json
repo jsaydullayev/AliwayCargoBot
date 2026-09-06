@@ -107,6 +107,7 @@
         "preview": "📋 <b>Yuk ma'lumoti (tekshirish)</b>\n━━━━━━━━━━━━━━━━━━━━\n\n🆔 Cargo ID: <b>{cargo_id}</b>\n👤 Mijoz: <b>{client_name}</b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📝 Izoh: <b>{notes}</b>\n━━━━━━━━━━━━━━━━━━━━",
         "confirm": "Yuk ma'lumotlarini saqlash?",
         "saved": "✅ <b>Yuk muvaffaqiyatli saqlandi!</b>",
+        "existing_shipments": "📦 Bu mijozda allaqachon <b>{count}</b> ta yuk bor — yangisi alohida yuk sifatida qo'shiladi.",
         "cancelled": "❌ Bekor qilindi."
     },
     "update_status": {
@@ -117,6 +118,7 @@
         "select_new_status": "Yangi holatni tanlang:",
         "updated": "✅ Status yangilandi: <b>{status}</b>",
         "same_status": "⚠️ Bu holat allaqachon tanlangan",
+        "select_shipment": "📦 <b>{name}</b> — Cargo ID: <b><code>{cargo_id}</code></b>\n\nBu IDga <b>{count}</b> ta yuk biriktirilgan.\nStatusini o'zgartirmoqchi bo'lgan yukni tanlang:",
         "shipment_info": "📦 <b>Yuk ma'lumoti</b>\n━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>{name}</b>\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n📌 Joriy holat: <b>{status}</b>\n━━━━━━━━━━━━━━━━━━━━"
     },
     "view_cargos": {
@@ -171,6 +173,7 @@
         "cargo_not_found": "❌ Cargo ID topilmadi.\n\nIltimos, IDni qayta tekshirib kiriting.",
         "no_access": "⛔ Bu Cargo ID siz bilan bog'liq emas.\n\nFaqat o'zingizning IDni kuzatishingiz mumkin.",
         "cargo_info": "📦 <b>Yuk ma'lumoti</b>\n\n🆔 Cargo ID: <b><code>{cargo_id}</code></b>\n📋 Yuk: <b>{description}</b>\n⚖️ Kilosi: <b>{weight}</b>\n📦 Cargo kilosi: <b>{cargo_weight}</b>\n💰 Narxi: <b>{price}</b>\n📌 Holat: <b>{status}</b>\n📝 Izoh: <b>{notes}</b>\n📅 Yaratilgan: <b>{created_at}</b>",
+        "select_shipment": "📦 Cargo ID <b><code>{cargo_id}</code></b> bo'yicha <b>{count}</b> ta yuk topildi.\n\nBatafsil ko'rish uchun yukni tanlang:",
         "view_photo": "🖼️ Rasmni ko'rish"
     },
     "groups": {

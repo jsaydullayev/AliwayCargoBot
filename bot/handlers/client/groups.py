@@ -29,10 +29,13 @@ async def show_categories(
     callback: CallbackQuery,
     i18n: I18nMiddleware,
 ) -> None:
-    """Faol kategoriyalar ro'yxati"""
+    """Kategoriyasiz guruh linklari + faol kategoriyalar ro'yxati"""
     lang = i18n.get_user_language(callback.from_user.id)
 
     async with get_session() as session:
+        # Kategoriyaga biriktirilmagan guruhlar — to'g'ridan-to'g'ri link tugmasi
+        direct_groups = await group_crud.get_uncategorized_active(session)
+
         categories = await group_category_crud.get_all_active(session)
         # Faqat ichida aktiv guruh bo'lgan kategoriyalarni ko'rsatish
         filtered = []
@@ -44,7 +47,7 @@ async def show_categories(
     title = i18n.get_text(lang, "groups.title")
     parts = [title, ""]
 
-    if not filtered:
+    if not filtered and not direct_groups:
         parts.append(i18n.get_text(lang, "groups.no_groups"))
         await callback.message.edit_text(
             "\n".join(parts),
@@ -53,9 +56,20 @@ async def show_categories(
         await callback.answer()
         return
 
-    parts.append(i18n.get_text(lang, "groups.subtitle"))
+    # Kategoriya bo'lmasa — "guruhni tanlang", bo'lsa — "kategoriyani tanlang"
+    subtitle_key = "groups.subtitle" if filtered else "groups.category_subtitle"
+    parts.append(i18n.get_text(lang, subtitle_key))
 
     rows = []
+    for g in direct_groups:
+        display_name = _localized_name(g, lang)
+        rows.append([
+            InlineKeyboardButton(
+                text=f"{g.emoji or '📌'} {display_name}",
+                url=g.telegram_link,
+            ),
+        ])
+
     for cat in filtered:
         display_name = _localized_name(cat, lang)
         rows.append([

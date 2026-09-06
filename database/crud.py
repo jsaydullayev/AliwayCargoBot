@@ -252,6 +252,14 @@ class ShipmentCRUD:
         return list(result.scalars().all())
 
     @staticmethod
+    async def count_by_client(session: AsyncSession, client_id: int) -> int:
+        """Clientga biriktirilgan yuklar sonini hisoblash"""
+        result = await session.execute(
+            select(func.count(Shipment.id)).where(Shipment.client_id == client_id)
+        )
+        return result.scalar() or 0
+
+    @staticmethod
     async def get_by_client_and_status(
         session: AsyncSession,
         client_id: int,
@@ -597,6 +605,16 @@ class GroupCRUD:
             query = query.where(Group.is_active == True)
         query = query.order_by(Group.sort_order, Group.id)
         result = await session.execute(query)
+        return list(result.scalars().all())
+
+    @staticmethod
+    async def get_uncategorized_active(session: AsyncSession) -> List[Group]:
+        """Kategoriyaga biriktirilmagan faol guruhlar (to'g'ridan-to'g'ri ko'rsatiladi)"""
+        result = await session.execute(
+            select(Group)
+            .where(Group.category_id.is_(None), Group.is_active == True)
+            .order_by(Group.sort_order, Group.id)
+        )
         return list(result.scalars().all())
 
     @staticmethod
